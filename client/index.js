@@ -6,8 +6,8 @@ import { Router, Route, IndexRoute } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import App from './App'
-import Home from './containers/Home'
-import NotFound from './containers/NotFound'
+import Home from './components/generic/Home'
+import NotFound from './components/generic/NotFound'
 
 injectTapEventPlugin()
 

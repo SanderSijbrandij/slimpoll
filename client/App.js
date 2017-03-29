@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
+import './assets/stylesheets/main.sass'
+import './assets/stylesheets/theme.sass'
 
 class App extends Component {
   render() {

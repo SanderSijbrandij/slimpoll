@@ -5,6 +5,7 @@ class Home extends Component {
     return(
       <div className="home">
         <h1>Welcome, Stranger!</h1>
+        <p>This is the generic Home page. It will show information and stuff.</p>
       </div>
     )
   }
