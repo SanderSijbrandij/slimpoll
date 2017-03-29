@@ -6,8 +6,6 @@
     $s-hsl: ($b-hsb * $s-hsb) / if($l-hsl < 50, $l-hsl * 2, 200 - $l-hsl * 2)
     @return hsla($h-hsb, $s-hsl, $l-hsl, $a)
 
-
-
 $font: 'Lato', sans-serif
 
 $background: rgb(255, 255, 255)
@@ -16,7 +14,9 @@ $color-light: hsb(180, 45%, 60%)
 $color-medium: hsb(190, 60%, 50%)
 $color-dark: hsb(200, 80%, 40%)
 
-body
+body, input
   font-family: $font
+
+body
   background-color: $background
   color: $color-dark
