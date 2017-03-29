@@ -1,13 +1,17 @@
 import React, { Component, PropTypes } from 'react'
+
 import './assets/stylesheets/main.sass'
-import './assets/stylesheets/theme.sass'
+import Navbar from './components/interface/Navbar'
 
 class App extends Component {
   render() {
     return(
-      <main className="app">
-        {this.props.children}
-      </main>
+      <div>
+        <Navbar />
+        <main className="app">
+          {this.props.children}
+        </main>
+      </div>
     );
   }
 }
