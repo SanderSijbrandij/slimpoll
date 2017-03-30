@@ -8,6 +8,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import App from './App'
 import Home from './components/generic/Home'
 import NotFound from './components/generic/NotFound'
+import PollsList from './components/polls/PollsList'
 
 injectTapEventPlugin()
 
@@ -16,7 +17,8 @@ render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="*" component={NotFound}/>
+        <Route path='/all-polls' component={PollsList} />
+        <Route path="*" component={NotFound} />
       </Route>
     </Router>
   </Provider>,

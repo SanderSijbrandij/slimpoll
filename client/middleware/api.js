@@ -35,6 +35,4 @@ class API {
   }
 }
 
-const Api = new API()
-
-export default Api
+export default API
