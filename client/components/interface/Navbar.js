@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react'
+import { Link } from 'react-router'
 
 class Navbar extends PureComponent {
   render() {
     return(
       <header className='page-header'>
-        <span>SlimPoll</span>
+        <span><Link to='/'>SlimPoll</Link></span>
         <nav className='navbar'>
-          <li>Polls</li>
-          <li>Create a poll</li>
-          <li>View your polls</li>
-          <li>Make this menu not bad</li>
+          <li><Link to="/all-polls">Polls</Link></li>
+          <li><Link to="/create-poll">Create a poll</Link></li>
+          <li><Link to="/my-polls">View your polls</Link></li>
         </nav>
       </header>
     )

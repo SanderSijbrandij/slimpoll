@@ -8,22 +8,38 @@
 
 $font: 'Lato', sans-serif
 
-$background: rgb(255, 255, 255)
-$color-light: hsb(205, 60%, 60%)
-$color-medium: hsb(195, 70%, 50%)
-$color-dark: hsb(200, 80%, 40%)
+$color-white: hsb(0, 0%, 95%)
+$color-light: hsb(0, 0%, 70%)
+$color-medium: hsb(0, 0%, 50%)
+$color-dark: hsb(0, 0%, 30%)
+$color-black: hsb(0, 0%, 10%)
 
 body, input
   font-family: $font
 
 body
   background-color: $color-dark
-  color: $color-dark
+  color: $color-black
 
 header
   background-color: $color-medium
-  color: white
+  color: $color-white
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
 
+  span,li
+    a
+      color: $color-white
+      &:hover
+        color: $color-light
 
 .app
-  background-color: $background
+  background-color: $color-white
+
+a
+  text-decoration: none
+  color: $color-dark
+  &:hover
+    color: $color-black
