@@ -1,0 +1,1 @@
+export const FETCHED_POLLS = 'FETCHED_POLLS'
