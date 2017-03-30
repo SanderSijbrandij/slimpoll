@@ -13,10 +13,19 @@ $color-light: hsb(0, 0%, 70%)
 $color-medium: hsb(0, 0%, 50%)
 $color-dark: hsb(0, 0%, 30%)
 $color-black: hsb(0, 0%, 10%)
+$color-error: hsb(0, 70%, 70%)
 
 .loading
   background-color: $color-black
   color: $color-light
+
+.error
+  background-color: $color-error
+  color: $color-white
+  h3
+    font-weight: 400
+  .closebutton
+    background-color: darken($color-error, 10%)
 
 body, input
   font-family: $font
