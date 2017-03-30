@@ -5,22 +5,24 @@ import signIn from '../../actions/users/sign-in'
 import signUp from '../../actions/users/sign-up'
 
 class UserForm extends PureComponent {
-  handleSubmit(event) {
+  handleSignUp(event) {
     event.preventDefault()
-    // TODO: add validation
-    if (true) {
-      const user = {
-        // TODO: add form values
-      }
-      // this.props.signIn/Up(user)
-    }
+  }
+
+  handleSignIn(event) {
+    event.preventDefault()
   }
 
   render() {
+    const { extended } = this.props
     return(
-      <div>
-        { this.props.extended ? 'sign up' : 'sign in'}
-      </div>
+      <form onSubmit={ extended ? this.handleSignUp : this.handleSignIn }>
+        { extended && <input type='text' ref='name' name='name' placeholder='Username' /> }
+        <input type='email' ref='email' name='email' placeholder='Email Address' />
+        <input type='password' ref='password' name='password' placeholder='Password' />
+        { extended && <input type='password' ref='password_confirmation' name='password_confirmation' placeholder='Password Confirmation' /> }
+        <input type='submit' value={ extended ? 'Create Account' : 'Sign in'} />
+      </form>
     )
   }
 }
