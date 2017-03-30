@@ -8,11 +8,24 @@ class PollsList extends PureComponent {
     this.props.fetchPolls()
   }
 
+  renderNoPolls() {
+    return <p>No Polls have been found. Add your own?</p>
+  }
+
+  renderPolls() {
+    return <p>Listing of polls</p>
+  }
+
   render() {
+    const { polls } = this.props
     return (
-      <p>polls list</p>
+      <section>
+        <h1>All Polls</h1>
+        { polls.length === 0 ? this.renderNoPolls() : this.renderPolls() }
+      </section>
     )
   }
 }
 
-export default connect(null, { fetchPolls })(PollsList)
+const mapStateToProps = ({ polls }) => ({ polls })
+export default connect(mapStateToProps, { fetchPolls })(PollsList)

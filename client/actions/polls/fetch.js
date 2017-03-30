@@ -13,7 +13,7 @@ export default () => {
         payload: res.data
       })
     })
-    .catch(() => {
+    .catch((err) => {
       console.error(err.message)
     })
   }
