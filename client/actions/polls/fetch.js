@@ -1,12 +1,15 @@
 import { FETCHED_POLLS } from '../types'
 import API from '../../middleware/api'
 import loading from '../interface/loading'
+import addError from '../interface/add-error'
+import clearErrors from '../interface/clear-errors'
 
 const api = new API()
 const polls = api.service('polls')
 
 export default () => {
   return (dispatch) => {
+    dispatch(clearErrors())
     dispatch(loading(true))
 
     polls.find({})
@@ -17,7 +20,7 @@ export default () => {
       })
     })
     .catch((err) => {
-      console.error(err.message)
+      dispatch(addError('Error Retrieving data', err.message))
     })
     .then(() => {
       dispatch(loading(false))

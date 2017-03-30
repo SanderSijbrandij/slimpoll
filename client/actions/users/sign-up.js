@@ -4,12 +4,16 @@ import { USER_SIGNED_UP } from '../types'
 import signIn from './sign-in'
 import loading from '../interface/loading'
 
+import addError from '../interface/add-error'
+import clearErrors from '../interface/clear-errors'
+
 const api = new API()
 const users = api.service('users')
 
 export default (user) => {
   return (dispatch) => {
     dispatch(loading(true))
+    dispatch(clearErrors())
 
     users.create(user)
     .then((res) => {
@@ -17,7 +21,7 @@ export default (user) => {
       dispatch(signIn(user))
     })
     .catch((err) => {
-      console.error(err)
+      dispatch(addError('Error creating User', err.message))
     })
     .then(() => {
       dispatch(loading(false))

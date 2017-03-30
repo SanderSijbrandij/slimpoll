@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 
 class Loading extends PureComponent {
   pastDelay() {
-    return (new Date().getTime() - this.props.timer > 200)
+    // return (new Date().getTime() - this.props.timer > 200)
+    return true
   }
 
   render() {

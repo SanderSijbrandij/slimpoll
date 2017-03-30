@@ -13,7 +13,6 @@ class UserForm extends PureComponent {
         password: this.refs.password.value
       }
       this.props.submitFunc(user)
-      history.push('/')
     }
     return false
   }
@@ -27,7 +26,6 @@ class UserForm extends PureComponent {
         password: this.refs.password.value
       }
       this.props.submitFunc(user)
-      history.push('/')
     }
     return false
   }
