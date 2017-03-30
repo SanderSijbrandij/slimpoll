@@ -8,7 +8,10 @@ export default () => {
   return (dispatch) => {
     polls.find({})
     .then((res) => {
-      console.log(res)
+      dispatch({
+        type: FETCHED_POLLS,
+        payload: res.data
+      })
     })
     .catch(() => {
       console.error(err.message)

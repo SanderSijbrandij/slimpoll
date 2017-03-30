@@ -1,1 +1,5 @@
-module.exports = {}
+import polls from './polls'
+
+module.exports = {
+  polls
+}
