@@ -12,16 +12,17 @@ class UserForm extends PureComponent {
       const user = {
         // TODO: add form values
       }
-      this.props.signIn(user)
+      // this.props.signIn/Up(user)
     }
   }
 
   render() {
     return(
-      null
+      <div>
+        { this.props.extended ? 'sign up' : 'sign in'}
+      </div>
     )
   }
 }
-
 
 export default connect(null, { signIn, signUp })(UserForm)

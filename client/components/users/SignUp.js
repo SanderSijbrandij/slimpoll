@@ -4,7 +4,12 @@ import UserForm from './UserForm'
 
 class SignUp extends PureComponent {
   render() {
-    return <UserForm signup={true} />
+    return (
+      <div>
+        <h1>Sign up</h1>
+        <UserForm extended={true} />
+      </div>
+    )
   }
 }
 
