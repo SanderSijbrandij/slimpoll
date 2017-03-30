@@ -1,22 +1,11 @@
 import React, { PureComponent, PropTypes } from 'react'
-import { connect } from 'react-redux'
 
-import signIn from '../../actions/users/sign-in'
+import UserForm from './UserForm'
 
 class SignIn extends PureComponent {
-  handleSubmit(event) {
-    event.preventDefault()
-    // TODO: add validation
-    if (true) {
-      const user = {
-        // TODO: add form values
-      }
-      this.props.signIn(user)
-    }
-  }
-
   render() {
-    return <p>signin form</p>
+    return <UserForm signup={false} />
   }
 }
-export default connect(null, { signIn })(SignIn)
+
+export default SignIn

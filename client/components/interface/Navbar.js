@@ -10,7 +10,7 @@ class Navbar extends PureComponent {
   }
 
   renderSignOut() {
-    return <li onClick={this.props.signOut}><a>Sign Out</a></li>
+    return <li><a onClick={this.props.signOut} href='#'>Sign Out</a></li>
   }
 
   renderSignIn() {
