@@ -2,12 +2,14 @@ import React, { Component, PropTypes } from 'react'
 
 import './assets/stylesheets/main.sass'
 import Navbar from './components/interface/Navbar'
+import Loading from './components/interface/Loading'
 
 class App extends Component {
   render() {
     return(
       <div>
         <Navbar />
+        <Loading />
         <main className="app">
           {this.props.children}
         </main>
