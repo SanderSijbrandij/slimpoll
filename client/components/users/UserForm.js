@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { history } from '../../store'
 
 class UserForm extends PureComponent {
   handleSignUp(event) {
@@ -12,6 +13,7 @@ class UserForm extends PureComponent {
         password: this.refs.password.value
       }
       this.props.submitFunc(user)
+      history.push('/')
     }
     return false
   }
@@ -24,8 +26,8 @@ class UserForm extends PureComponent {
         email: this.refs.email.value,
         password: this.refs.password.value
       }
-
       this.props.submitFunc(user)
+      history.push('/')
     }
     return false
   }
