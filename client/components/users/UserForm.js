@@ -1,22 +1,39 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-
-import signIn from '../../actions/users/sign-in'
-import signUp from '../../actions/users/sign-up'
 
 class UserForm extends PureComponent {
   handleSignUp(event) {
     event.preventDefault()
+
+    // add validations here.
+    if (true) {
+      const user = {
+        name: this.refs.name.value,
+        email: this.refs.email.value,
+        password: this.refs.password.value
+      }
+      this.props.submitFunc(user)
+    }
+    return false
   }
 
   handleSignIn(event) {
     event.preventDefault()
+
+    if (true) {
+      const user = {
+        email: this.refs.email.value,
+        password: this.refs.password.value
+      }
+
+      this.props.submitFunc(user)
+    }
+    return false
   }
 
   render() {
     const { extended } = this.props
     return(
-      <form onSubmit={ extended ? this.handleSignUp : this.handleSignIn }>
+      <form onSubmit={ extended ? this.handleSignUp.bind(this) : this.handleSignIn.bind(this) }>
         { extended && <input type='text' ref='name' name='name' placeholder='Username' /> }
         <input type='email' ref='email' name='email' placeholder='Email Address' />
         <input type='password' ref='password' name='password' placeholder='Password' />
@@ -27,4 +44,4 @@ class UserForm extends PureComponent {
   }
 }
 
-export default connect(null, { signIn, signUp })(UserForm)
+export default UserForm

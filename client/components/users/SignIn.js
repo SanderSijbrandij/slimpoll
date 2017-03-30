@@ -1,5 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
+import { connect } from 'react-redux'
 
+import signIn from '../../actions/users/sign-in'
 import UserForm from './UserForm'
 
 class SignIn extends PureComponent {
@@ -7,10 +9,10 @@ class SignIn extends PureComponent {
     return (
       <div>
         <h1>Sign in</h1>
-        <UserForm extended={false} />
+        <UserForm extended={false} submitFunc={this.props.signIn} />
       </div>
     )
   }
 }
 
-export default SignIn
+export default connect(null, { signIn })(SignIn)
