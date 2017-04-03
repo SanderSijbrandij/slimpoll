@@ -1,7 +1,11 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 class Loading extends PureComponent {
+  static propTypes = {
+    loading: PropTypes.bool.isRequired
+  }
+
   render() {
     const { loading } = this.props
     const classes = loading ? 'loading' : 'notloading'
