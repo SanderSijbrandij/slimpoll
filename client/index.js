@@ -13,6 +13,7 @@ import SignUp from './components/users/SignUp'
 import SignIn from './components/users/SignIn'
 
 import PollsList from './components/polls/PollsList'
+import CreatePoll from './components/polls/CreatePoll'
 
 injectTapEventPlugin()
 
@@ -25,6 +26,8 @@ render(
 
         <Route path='/sign-up' component={SignUp} />
         <Route path='/sign-in' component={SignIn} />
+
+        <Route path='/create-poll' component={CreatePoll} />
 
         <Route path="*" component={NotFound} />
       </Route>
