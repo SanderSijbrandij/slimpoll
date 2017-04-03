@@ -7,7 +7,8 @@ import signOut from '../../actions/users/sign-out'
 class Navbar extends PureComponent {
   static propTypes = {
     currentUser: PropTypes.object,
-    signedIn: PropTypes.bool.isRequired
+    signedIn: PropTypes.bool.isRequired,
+    signOut: PropTypes.func.isRequired
   }
 
   renderSignOut() {
