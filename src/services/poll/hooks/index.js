@@ -3,6 +3,14 @@
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
+const common = require('feathers-hooks-common');
+
+const setCreatedBy = require('./set-created-by');
+const populateCreator = common.populate('createdBy', { service: 'users', field: 'createdBy' })
+const creatorNameOnly = common.remove(
+  'createdBy.email',
+  'createdBy.createdAt',
+  'createdBy.updatedAt')
 
 exports.before = {
   all: [],
@@ -11,7 +19,8 @@ exports.before = {
   create: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.restrictToAuthenticated()
+    auth.restrictToAuthenticated(),
+    setCreatedBy()
   ],
   update: [],
   patch: [],
@@ -23,7 +32,7 @@ exports.before = {
 };
 
 exports.after = {
-  all: [],
+  all: [populateCreator, creatorNameOnly],
   find: [],
   get: [],
   create: [],
