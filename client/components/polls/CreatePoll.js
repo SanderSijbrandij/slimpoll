@@ -27,8 +27,8 @@ class CreatePoll extends PureComponent {
     this.setState({
       answers: this.state.answers.concat([
         {
-          answerText: this.refs.newanswer.value,
-          count: 0
+          text: this.refs.newanswer.value,
+          voteCount: 0
         }
       ])
     })
@@ -77,7 +77,7 @@ class CreatePoll extends PureComponent {
   renderAnswer(answer, index) {
     return (
       <li key={ index }>
-        <span>{ answer.answerText }</span>
+        <span>{ answer.text }</span>
         &nbsp; > <a href='#' onClick={ this.removeAnswer.bind(this, answer) }>remove</a>
       </li>
     )
