@@ -1,5 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 import fetchPolls from '../../actions/polls/fetch'
 
@@ -18,7 +19,18 @@ class PollsList extends PureComponent {
   }
 
   renderPolls() {
-    return <p>Listing of polls</p>
+    return (
+      <ul>{ this.props.polls.map(this.renderPoll) }</ul>
+    )
+  }
+
+  renderPoll(poll, index) {
+    const location = 'poll/' + poll._id
+    return (
+      <li key={ index }>
+        <Link to={ location }>{ poll.question }</Link>
+      </li>
+    )
   }
 
   render() {
