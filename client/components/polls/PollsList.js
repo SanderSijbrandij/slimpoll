@@ -13,14 +13,14 @@ class PollsList extends PureComponent {
 
   renderPolls() {
     return (
-      <ul>{ this.props.polls.map(this.renderPoll) }</ul>
+      <ul className='poll-index'>{ this.props.polls.map(this.renderPoll) }</ul>
     )
   }
 
   renderPoll(poll, index) {
     const location = 'poll/' + poll._id
     return (
-      <li className='poll-index' key={ index }>
+      <li className='poll-index-item' key={ index }>
         <Link to={ location }>{ poll.question }</Link>
         <span>
           { poll.answers.reduce((curr, next) => { return curr + next.voteCount }, 0) } votes

@@ -1,6 +1,8 @@
 @import './normalize.css'
 @import './variables.sass'
 @import './interface.sass'
+@import './forms.sass'
+@import './polls.sass'
 
 *
   box-sizing: border-box
@@ -65,34 +67,8 @@ header.page-header
   padding: 50px 30px
   background-color: $color-white
 
-input
-  display: block
-  margin: 5px 0
-  outline: 0
-
 a
   text-decoration: none
   color: $color-dark
   &:hover
     color: $color-black
-
-.form-group
-  margin-bottom: 50px
-
-.poll-index
-  display: flex
-  justify-content: space-between
-  align-items: center
-  margin-bottom: 15px
-  border-bottom: 1px dotted $color-medium
-  &:hover
-    border-bottom: 1px dotted $color-black
-  a
-    font-size: 1.4em
-    font-weight: 300
-  span
-    font-size: 0.9em
-    font-weight: 400
-    align-self: flex-end
-    text-align: right
-    margin-left: 10px

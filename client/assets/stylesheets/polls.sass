@@ -1,0 +1,57 @@
+.poll-index
+  margin: 0
+  padding: 0
+
+.poll-index-item
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin: 0 0 15px 0
+  border-bottom: 1px dotted $color-primary
+  &:hover
+    border-bottom: 1px dotted $color-black
+  a
+    font-size: 1.2em
+    font-weight: 300
+  span
+    font-size: 0.9em
+    font-weight: 400
+    align-self: flex-end
+    text-align: right
+    margin-left: 10px
+
+.new-poll
+  h3
+    font-weight: 400
+    text-decoration: underline
+    small
+      font-size: 0.6em
+
+  .input-answer
+    margin-top: 10px
+
+  .text-question
+    font-weight: 300
+    font-size: 1em
+    line-height: 40px
+    margin: 0
+
+.current-answers
+  list-style-type: none
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  padding: 0
+  margin: -10px 0 0 0
+  li
+    font-weight: 300
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: flex-end
+    height: 40px
+    margin-bottom: 5px
+    .divider
+      flex: 1
+      border-bottom: 1px dotted $color-light
+      margin-left: 10px

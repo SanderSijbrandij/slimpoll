@@ -13,9 +13,14 @@ class CreatePoll extends PureComponent {
     }
   }
 
-  setQuestionText(event) {
+  handleKeyDown(event) {
     this.setState({ question: this.refs.question.value })
     if (event.key == 'Enter') { this.toggleQuestionEditing() }
+  }
+
+  handleBlur(event) {
+    this.setState({ question: this.refs.question.value })
+    this.toggleQuestionEditing()
   }
 
   toggleQuestionEditing() {
@@ -58,17 +63,18 @@ class CreatePoll extends PureComponent {
 
   renderQuestionInput() {
     return (
-      <input type='text' className='input-question'
+      <input type='text' className='input input-question'
         placeholder="Don't be shy, ask a question!"
         name='question' ref='question'
         defaultValue={ this.state.question }
-        onKeyDown={ this.setQuestionText.bind(this) } />
+        onKeyDown={ this.handleKeyDown.bind(this) }
+        onBlur={ this.handleBlur.bind(this) } />
     )
   }
 
   renderQuestionText() {
     return (
-      <span onClick={ this.toggleQuestionEditing.bind(this) }>
+      <span className='text-question' onClick={ this.toggleQuestionEditing.bind(this) }>
         { this.state.question }
       </span>
     )
@@ -77,8 +83,9 @@ class CreatePoll extends PureComponent {
   renderAnswer(answer, index) {
     return (
       <li key={ index }>
-        <span>{ answer.text }</span>
-        &nbsp; > <a href='#' onClick={ this.removeAnswer.bind(this, answer) }>remove</a>
+        <span className='answer-text'>{ answer.text }</span>
+        <span className='divider'></span>
+        <span className='button button-error' onClick={ this.removeAnswer.bind(this, answer) }>remove</span>
       </li>
     )
   }
@@ -94,10 +101,10 @@ class CreatePoll extends PureComponent {
 
   render() {
     return (
-      <section>
-        <h1>Make a new poll</h1>
+      <section className='new-poll'>
+        <h1>New poll</h1>
         <div className='form-group'>
-          <h2>Question</h2>
+          <h3 onClick={ this.toggleQuestionEditing.bind(this) }>Question <small>(click to edit)</small></h3>
           { this.state.editingQuestion ?
             this.renderQuestionInput() :
             this.renderQuestionText() }
@@ -105,18 +112,19 @@ class CreatePoll extends PureComponent {
 
         <form onSubmit={ this.addAnswer.bind(this) }>
           <div className='form-group'>
-            <h2>Answers</h2>
+            <h3>Answers</h3>
             { this.renderAnswers() }
-            <br />
-            <input type='text' className='input-answer'
-              placeholder='Add an Option'
-              name='newanswer'
-              ref='newanswer' />
-            <input type='submit' value='Add' className='add-answer' />
+            <div className='form-row'>
+              <input type='text' className='input input-answer'
+                placeholder='Add an Option'
+                name='newanswer'
+                ref='newanswer' />
+            </div>
           </div>
         </form>
-
-        <button onClick={ this.savePoll.bind(this) }>Create</button>
+        <div className='form-group'>
+          <button className='button button-fullwidth button-primary' onClick={ this.savePoll.bind(this) }>Create</button>
+        </div>
       </section>
     )
   }
