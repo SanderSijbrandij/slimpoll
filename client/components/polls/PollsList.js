@@ -2,16 +2,9 @@ import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-import fetchPolls from '../../actions/polls/fetch'
-
 class PollsList extends PureComponent {
   static propTypes = {
-    polls: PropTypes.array.isRequired,
-    fetchPolls: PropTypes.func.isRequired
-  }
-
-  componentDidMount() {
-    this.props.fetchPolls()
+    polls: PropTypes.array.isRequired
   }
 
   renderNoPolls() {
@@ -48,4 +41,4 @@ class PollsList extends PureComponent {
 }
 
 const mapStateToProps = ({ polls }) => ({ polls })
-export default connect(mapStateToProps, { fetchPolls })(PollsList)
+export default connect(mapStateToProps)(PollsList)
