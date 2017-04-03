@@ -4,6 +4,11 @@ import { connect } from 'react-redux'
 import fetchPolls from '../../actions/polls/fetch'
 
 class PollsList extends PureComponent {
+  static propTypes = {
+    polls: PropTypes.array.isRequired,
+    fetchPolls: PropTypes.func.isRequired
+  }
+
   componentDidMount() {
     this.props.fetchPolls()
   }
