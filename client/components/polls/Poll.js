@@ -1,23 +1,57 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 class Poll extends PureComponent {
   static propTypes = {
-    poll: PropTypes.object
+    poll: PropTypes.object,
+    currentUser: PropTypes.object
+  }
+
+  renderAnswer(answer, index, answers) {
+    const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
+    const votePerc = (totalVotes === 0) ? 0 : Math.round(answer.voteCount / totalVotes * 100)
+
+    return (
+      <li key={ index }>
+        { answer.text } ({ answer.voteCount } / { votePerc + '%' })
+      </li>
+    )
   }
 
   render() {
-    const { poll } = this.props
+    // set initial values because Redux and Router are asynchronous
+    // => data might not exist yet
+    const initialValues = { question: '', answers: [], createdBy: {} }
+    const { poll, currentUserId } = this.props
+    const { question, answers, createdBy } = poll || initialValues
+    const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
+
     return (
       <div className='poll'>
-        <h1>{ !!poll ? poll.question : 'Loading...' }</h1>
+        <h1>{ question }</h1>
+        <p><small>by { createdBy._id === currentUserId ? 'You' : createdBy.name }</small></p>
+        <div className='poll-main'>
+          <div className='poll-answers'>
+            <ul>
+              { answers.map(this.renderAnswer) }
+              <li><button className='button button-primary'>Vote</button></li>
+            </ul>
+          </div>
+          <div className='poll-graph'>
+            graph <br/>
+            <span className='total-votes'>{ totalVotes } total votes</span>
+          </div>
+        </div>
+        <Link to='/all-polls'>Back to polls list</Link>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ polls }, ownProps) => ({
-  poll: polls.filter((poll) => { return (ownProps.params.pollId == poll._id) })[0]
+const mapStateToProps = ({ polls , currentUser }, ownProps) => ({
+  poll: polls.filter((poll) => { return (ownProps.params.pollId == poll._id) })[0],
+  currentUserId: currentUser._id
 })
 
 
