@@ -12,7 +12,12 @@ export default () => {
     dispatch(clearErrors())
     dispatch(loading(true))
 
-    polls.find({})
+    polls.find({
+      query: {
+        $limit: 50,
+        $sort: { createdAt: -1 }
+      }
+    })
     .then((res) => {
       dispatch({
         type: FETCHED_POLLS,

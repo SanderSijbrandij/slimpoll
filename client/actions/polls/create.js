@@ -14,7 +14,7 @@ export default (poll) => {
     dispatch(loading(true))
 
     // validations here
-    const validation = validatePoll(poll, userId)
+    const validation = validatePoll(poll)
     if (!validation.ok) {
       dispatch(addError('Error creating poll', validation.message))
       dispatch(loading(false))
