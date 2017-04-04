@@ -54,18 +54,14 @@ class CreatePoll extends PureComponent {
     event.preventDefault()
     const { question, answers } = this.state
     const { savePoll, currentUser } = this.props
-    if (question === '' || answers.length < 2) {
-      // Add validations to the form for this
-    } else {
-      savePoll({ question, answers }, currentUser._id)
-    }
+    savePoll({ question, answers }, currentUser._id)
   }
 
   renderQuestionInput() {
     return (
       <input type='text' className='input input-question'
-        placeholder="Don't be shy, ask a question!"
-        name='question' ref='question'
+        placeholder="Press enter to save."
+        name='question' ref='question' maxLength='80'
         defaultValue={ this.state.question }
         onKeyDown={ this.handleKeyDown.bind(this) }
         onBlur={ this.handleBlur.bind(this) } />
@@ -116,9 +112,8 @@ class CreatePoll extends PureComponent {
             { this.renderAnswers() }
             <div className='form-row'>
               <input type='text' className='input input-answer'
-                placeholder='Add an Option'
-                name='newanswer'
-                ref='newanswer' />
+                placeholder='Press enter to save.' maxLength='60'
+                name='newanswer' ref='newanswer' />
             </div>
           </div>
         </form>
