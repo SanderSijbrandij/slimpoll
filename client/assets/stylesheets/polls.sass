@@ -63,15 +63,24 @@
   display: flex
   justify-content: space-between
   margin-bottom: 50px
-  .poll-chart
-    margin-top: -70px
-  .poll-answers
-    ul
-      list-style-type: none
-      margin: 0
-      padding: 0
-      li
-        display: block
+
+.poll-chart
+  margin-top: -70px
+
+.poll-answers
+  ul
+    list-style-type: none
+    margin: 0
+    padding: 0
+
+.answer-option
+  display: flex
+  align-items: center
+  height: 30px
+  input[type=radio]
+    display: inline
+    margin: 0 5px
+
 
 .rd3-piechart-arc > g > line
   display: none

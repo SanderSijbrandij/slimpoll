@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import rd3 from 'rd3'
 
+import addVote from '../../actions/polls/vote'
+
 const PieChart = rd3.PieChart
 
 class Poll extends PureComponent {
@@ -11,13 +13,30 @@ class Poll extends PureComponent {
     currentUser: PropTypes.object
   }
 
+  constructor() {
+    super()
+    this.state = { answerId: null }
+  }
+
+  changeAnswer(event) {
+    this.setState({ answerId: event.target.value })
+  }
+
+  submitVote(event) {
+    event.preventDefault()
+    this.props.addVote(this.props.poll._id , this.state.answerId)
+  }
+
   renderAnswer(answer, index, answers) {
     const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
     const votePerc = (totalVotes === 0) ? 0 : Math.round(answer.voteCount / totalVotes * 100)
 
     return (
-      <li key={ index }>
-        { answer.text } ({ answer.voteCount } / { votePerc + '%' })
+      <li key={ index } className='answer-option'>
+        <input type='radio' name='answerId' value={ answer._id } id={ answer._id } />
+        <label htmlFor={ answer._id }>
+          { answer.text } ({ answer.voteCount } / { votePerc + '%' })
+        </label>
       </li>
     )
   }
@@ -67,9 +86,15 @@ class Poll extends PureComponent {
         <p><small>by { createdBy._id === currentUserId ? 'You' : createdBy.name }</small></p>
         <div className='poll-main'>
           <div className='poll-answers'>
-            <ul>
+            <ul onChange={ this.changeAnswer.bind(this) }>
               { answers.map(this.renderAnswer) }
-              <li><button className='button button-primary'>Vote</button></li>
+              <li>
+                <button
+                  className='button button-primary'
+                  onClick={this.submitVote.bind(this)}>
+                  Vote
+                </button>
+                </li>
             </ul>
           </div>
           <div className='poll-chart'>
@@ -87,5 +112,4 @@ const mapStateToProps = ({ polls , currentUser }, ownProps) => ({
   currentUserId: currentUser._id
 })
 
-
-export default connect(mapStateToProps)(Poll)
+export default connect(mapStateToProps, { addVote })(Poll)
