@@ -2,6 +2,8 @@ import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
+import PollChart from './PollChart'
+
 class Poll extends PureComponent {
   static propTypes = {
     poll: PropTypes.object,
@@ -25,7 +27,6 @@ class Poll extends PureComponent {
     const initialValues = { question: '', answers: [], createdBy: {} }
     const { poll, currentUserId } = this.props
     const { question, answers, createdBy } = poll || initialValues
-    const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
 
     return (
       <div className='poll'>
@@ -38,10 +39,7 @@ class Poll extends PureComponent {
               <li><button className='button button-primary'>Vote</button></li>
             </ul>
           </div>
-          <div className='poll-graph'>
-            graph <br/>
-            <span className='total-votes'>{ totalVotes } total votes</span>
-          </div>
+          <PollChart answers={ answers } />
         </div>
         <Link to='/all-polls'>Back to polls list</Link>
       </div>
