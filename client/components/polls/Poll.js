@@ -1,8 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import rd3 from 'rd3'
 
-import PollChart from './PollChart'
+const PieChart = rd3.PieChart
 
 class Poll extends PureComponent {
   static propTypes = {
@@ -21,12 +22,44 @@ class Poll extends PureComponent {
     )
   }
 
+  renderPieChart(answers) {
+    const totalVotes = answers.reduce((curr, next) => {
+      return curr + next.voteCount
+    }, 0)
+
+    const data = answers.map((answer) => {
+      return {
+        label: answer.text,
+        value: Math.round(answer.voteCount/totalVotes * 100)
+      }
+    })
+
+    return (
+      <PieChart
+        data={data}
+        width={500}
+        height={300}
+        radius={100}
+        innerRadius={0}
+        sectorBorderColor='white'
+        showInnerLabels={true}
+        showOuterLabels={true}
+        valueTextFormatter={(val) => `${val}%`}
+        colors={d3.scale.category10()}
+        colorAccessor={(d, i) => i}
+      />
+    )
+  }
+
   render() {
     // set initial values because Redux and Router are asynchronous
     // => data might not exist yet
     const initialValues = { question: '', answers: [], createdBy: {} }
     const { poll, currentUserId } = this.props
     const { question, answers, createdBy } = poll || initialValues
+    const totalVotes = answers.reduce((curr, next) => {
+      return curr + next.voteCount
+    }, 0)
 
     return (
       <div className='poll'>
@@ -39,7 +72,9 @@ class Poll extends PureComponent {
               <li><button className='button button-primary'>Vote</button></li>
             </ul>
           </div>
-          <PollChart answers={ answers } />
+          <div className='poll-chart'>
+            { totalVotes > 0 && this.renderPieChart(answers) }
+          </div>
         </div>
         <Link to='/all-polls'>Back to polls list</Link>
       </div>
