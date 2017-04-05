@@ -12,6 +12,10 @@ const creatorNameOnly = common.remove(
   'createdBy.createdAt',
   'createdBy.updatedAt')
 
+const vote = (hook) => {
+  console.log(hook)
+}
+
 exports.before = {
   all: [],
   find: [],
@@ -23,7 +27,7 @@ exports.before = {
     setCreatedBy()
   ],
   update: [],
-  patch: [],
+  patch: [vote],
   remove: [
     auth.verifyToken(),
     auth.populateUser(),

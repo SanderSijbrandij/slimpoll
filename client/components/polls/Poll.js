@@ -24,7 +24,7 @@ class Poll extends PureComponent {
 
   submitVote(event) {
     event.preventDefault()
-    this.props.addVote(this.props.poll._id , this.state.answerId)
+    this.props.addVote(this.props.poll._id , this.state.answerId, this.props.poll.answers)
   }
 
   renderAnswer(answer, index, answers) {

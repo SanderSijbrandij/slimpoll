@@ -6,7 +6,7 @@ import { ObjectId } from 'mongoose'
 const api = new API()
 const polls = api.service('polls')
 
-export default (pollId, answerId) => {
+export default (pollId, answerId, answers) => {
   return (dispatch) => {
     dispatch(clearErrors())
     if (!answerId) {
@@ -14,24 +14,17 @@ export default (pollId, answerId) => {
     } else {
       dispatch(loading(true))
 
-      // answers.INDEX.voteCount works, but can't be interpolated in the query
-      polls.update(
-        // query
-        {
-          _id: pollId,
-          'answers': {
-            '$elemMatch': {
-              '_id': ObjectId(answerId)
-            }
-          }
-        },
-        // update
-        {
-          '$inc': {
-            'answers.$.voteCount' : 1
-          }
-        },
-      )
+      const newAnswers = answers.map((a) => {
+        if (a._id == answerId) {
+          let newAnswer = a
+          newAnswer.voteCount++
+          return newAnswer
+        } else {
+          return a
+        }
+      })
+
+      polls.patch(pollId, { answers: newAnswers })
       .then((res) => {
         console.log(res)
       })
@@ -40,3 +33,8 @@ export default (pollId, answerId) => {
     }
   }
 }
+
+// mongoDB allows this:
+// db.polls.update(
+// { answers: { $elemMatch: { _id: ObjectId("58e20ef94b7f2417900e355f") } } },
+// { $inc: { "answers.$.voteCount": 1 } })
