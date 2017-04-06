@@ -25,16 +25,8 @@ export default (pollId, answerId, answers) => {
       })
 
       polls.patch(pollId, { answers: newAnswers })
-      .then((res) => {
-        console.log(res)
-      })
       .catch((err) => { dispatch(addError('Voting Error', err.message)); console.error(err) })
       .then(() => { dispatch(loading(false)) })
     }
   }
 }
-
-// mongoDB allows this:
-// db.polls.update(
-// { answers: { $elemMatch: { _id: ObjectId("58e20ef94b7f2417900e355f") } } },
-// { $inc: { "answers.$.voteCount": 1 } })

@@ -13,7 +13,7 @@ const creatorNameOnly = common.remove(
   'createdBy.updatedAt')
 
 const vote = (hook) => {
-  console.log(hook)
+  // validate & add session things here to make sure the same user can't vote again.
 }
 
 exports.before = {

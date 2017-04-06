@@ -41,7 +41,11 @@ class Poll extends PureComponent {
     )
   }
 
-  renderPieChart(answers) {
+  renderPieChart(allAnswers) {
+    const answers = allAnswers.filter((answer) => {
+      return answer.voteCount > 0
+    })
+
     const totalVotes = answers.reduce((curr, next) => {
       return curr + next.voteCount
     }, 0)
