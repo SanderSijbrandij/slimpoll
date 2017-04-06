@@ -6,21 +6,9 @@ const auth = require('feathers-authentication').hooks;
 const common = require('feathers-hooks-common');
 
 const setCreatedBy = require('./set-created-by');
+const restrictVotes = require('./restrict-votes');
 const populateCreator = common.populate('createdBy', { service: 'users', field: 'createdBy' })
-const creatorNameOnly = common.remove(
-  'createdBy.email',
-  'createdBy.createdAt',
-  'createdBy.updatedAt')
-
-const vote = (hook) => {
-  hook.app.service('polls').get(hook.id)
-    .then((res) => {
-      if (res.voters.indexOf(hook.data.$addToSet.voters) !== -1) {
-        hook.data = { }
-        return hook
-      }
-    })
-}
+const creatorNameOnly = common.remove('createdBy.email', 'createdBy.createdAt', 'createdBy.updatedAt')
 
 exports.before = {
   all: [],
@@ -33,7 +21,7 @@ exports.before = {
     setCreatedBy()
   ],
   update: [],
-  patch: [vote],
+  patch: [restrictVotes],
   remove: [
     auth.verifyToken(),
     auth.populateUser(),

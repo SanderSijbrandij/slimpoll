@@ -2,6 +2,7 @@ import API from '../../middleware/api'
 import loading from '../interface/loading'
 import addError from '../interface/add-error'
 import clearErrors from '../interface/clear-errors'
+import fetchPolls from './fetch'
 import cookie from 'react-cookie'
 
 const api = new API()
@@ -28,8 +29,12 @@ export default (pollId, answerId, answers) => {
         answers: newAnswers,
         $addToSet: { voters: sessionId }
       })
-
-      .catch((err) => { dispatch(addError('Voting Error', err.message)); console.error(err) })
+      .catch((err) => {
+        // re-fetch the polls, otherwise state will act strangely because it
+        // thinks it's been updated.
+        // -> good target for refactoring
+        dispatch(fetchPolls())
+      })
       .then(() => { dispatch(loading(false)) })
     }
   }
