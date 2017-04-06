@@ -13,7 +13,13 @@ const creatorNameOnly = common.remove(
   'createdBy.updatedAt')
 
 const vote = (hook) => {
-  // validate & add session things here to make sure the same user can't vote again.
+  hook.app.service('polls').get(hook.id)
+    .then((res) => {
+      if (res.voters.indexOf(hook.data.$addToSet.voters) !== -1) {
+        hook.data = { }
+        return hook
+      }
+    })
 }
 
 exports.before = {
