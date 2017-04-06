@@ -3,12 +3,11 @@ import loading from '../interface/loading'
 import addError from '../interface/add-error'
 import clearErrors from '../interface/clear-errors'
 import fetchPolls from './fetch'
-import cookie from 'react-cookie'
+import { loadCookie, saveCookie } from '../../helpers/session-id'
 
 const api = new API()
 const polls = api.service('polls')
 
-const COOKIENAME = 'sessionId'
 
 export default (pollId, answerId, answers) => {
   return (dispatch) => {
@@ -38,17 +37,4 @@ export default (pollId, answerId, answers) => {
       .then(() => { dispatch(loading(false)) })
     }
   }
-}
-
-const loadCookie = () => { return cookie.load(COOKIENAME) }
-
-const saveCookie = () => {
-  const token = createToken()
-  cookie.save(COOKIENAME, token, { path: '/', expires: new Date(2035, 1, 1) })
-  return token
-}
-
-const createToken = () => {
-  return (Math.random().toString(36).substr(2) +
-          Math.random().toString(36).substr(2))
 }
