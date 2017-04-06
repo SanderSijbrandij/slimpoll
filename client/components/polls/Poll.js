@@ -2,7 +2,7 @@ import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import rd3 from 'rd3'
-
+import { loadCookie } from '../../helpers/session-id'
 import addVote from '../../actions/polls/vote'
 
 const PieChart = rd3.PieChart
@@ -33,7 +33,7 @@ class Poll extends PureComponent {
 
     return (
       <li key={ index } className='answer-option'>
-        <input type='radio' name='answerId' value={ answer._id } id={ answer._id } />
+      <input type='radio' name='answerId' value={ answer._id } id={ answer._id } />
         <label htmlFor={ answer._id }>
           { answer.text } ({ answer.voteCount } / { votePerc + '%' })
         </label>
@@ -77,12 +77,14 @@ class Poll extends PureComponent {
   render() {
     // set initial values because Redux and Router are asynchronous
     // => data might not exist yet
-    const initialValues = { question: '', answers: [], createdBy: {} }
+    const initialValues = { question: '', answers: [], createdBy: {}, voters: [] }
     const { poll, currentUser } = this.props
-    const { question, answers, createdBy } = poll || initialValues
+    const { question, answers, createdBy, voters } = poll || initialValues
     const totalVotes = answers.reduce((curr, next) => {
       return curr + next.voteCount
     }, 0)
+    const sessionId = loadCookie() || null
+    const voted = (!!sessionId && voters.indexOf(sessionId) !== -1)
 
     return (
       <div className='poll'>
@@ -90,7 +92,7 @@ class Poll extends PureComponent {
         <p><small>by { ( !!currentUser && createdBy._id === currentUser._id ) ? 'You' : createdBy.name }</small></p>
         <div className='poll-main'>
           <div className='poll-answers'>
-            <ul onChange={ this.changeAnswer.bind(this) }>
+            { !voted && <ul onChange={ this.changeAnswer.bind(this) }>
               { answers.map(this.renderAnswer) }
               <li>
                 <button
@@ -98,8 +100,9 @@ class Poll extends PureComponent {
                   onClick={this.submitVote.bind(this)}>
                   Vote
                 </button>
-                </li>
-            </ul>
+              </li>
+            </ul> }
+            { voted && <h3>Thanks for voting!</h3> }
           </div>
           <div className='poll-chart'>
             { totalVotes > 0 && this.renderPieChart(answers) }
