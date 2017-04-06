@@ -78,7 +78,7 @@ class Poll extends PureComponent {
     // set initial values because Redux and Router are asynchronous
     // => data might not exist yet
     const initialValues = { question: '', answers: [], createdBy: {} }
-    const { poll, currentUserId } = this.props
+    const { poll, currentUser } = this.props
     const { question, answers, createdBy } = poll || initialValues
     const totalVotes = answers.reduce((curr, next) => {
       return curr + next.voteCount
@@ -87,7 +87,7 @@ class Poll extends PureComponent {
     return (
       <div className='poll'>
         <h1>{ question }</h1>
-        <p><small>by { createdBy._id === currentUserId ? 'You' : createdBy.name }</small></p>
+        <p><small>by { ( !!currentUser && createdBy._id === currentUser._id ) ? 'You' : createdBy.name }</small></p>
         <div className='poll-main'>
           <div className='poll-answers'>
             <ul onChange={ this.changeAnswer.bind(this) }>
@@ -113,7 +113,7 @@ class Poll extends PureComponent {
 
 const mapStateToProps = ({ polls , currentUser }, ownProps) => ({
   poll: polls.filter((poll) => { return (ownProps.params.pollId == poll._id) })[0],
-  currentUserId: currentUser._id
+  currentUser
 })
 
 export default connect(mapStateToProps, { addVote })(Poll)

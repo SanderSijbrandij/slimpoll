@@ -15,13 +15,8 @@ export default (pollId, answerId, answers) => {
       dispatch(loading(true))
 
       const newAnswers = answers.map((a) => {
-        if (a._id == answerId) {
-          let newAnswer = a
-          newAnswer.voteCount++
-          return newAnswer
-        } else {
-          return a
-        }
+        if (a._id == answerId) { a.voteCount++ }
+        return a
       })
 
       polls.patch(pollId, { answers: newAnswers })
