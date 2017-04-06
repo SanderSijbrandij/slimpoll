@@ -32,3 +32,4 @@ data/
 yarn.lock
 
 .vscode/
+jsconfig.json
