@@ -39,15 +39,22 @@
     list-style-type: none
     margin: 0
     padding: 0
+    width: 400px
 
 .answer-option
   display: flex
   align-items: center
+  justify-content: space-between
   height: 30px
+  
+  padding: 0 5px
+  &:hover
+    background-color: $color-medium
   input[type=radio]
-    display: inline
-    margin: 0 5px
+    display: none
 
+.answer-active
+    background-color: $color-medium  
 
 .rd3-piechart-arc > g > line
   display: none

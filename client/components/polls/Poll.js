@@ -19,7 +19,7 @@ class Poll extends PureComponent {
   }
 
   changeAnswer(event) {
-    this.setState({ answerId: event.target.value })
+    this.setState({ answerId: event.target.id })
   }
 
   submitVote(event) {
@@ -31,12 +31,19 @@ class Poll extends PureComponent {
     const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
     const votePerc = (totalVotes === 0) ? 0 : Math.round(answer.voteCount / totalVotes * 100)
 
+    const classes = (this.state.answerId == answer._id) ? 
+      'answer-option answer-active' : 
+      'answer-option'
+
     return (
-      <li key={ index } className='answer-option'>
-      <input type='radio' name='answerId' value={ answer._id } id={ answer._id } />
-        <label htmlFor={ answer._id }>
-          { answer.text } ({ answer.voteCount } / { votePerc + '%' })
-        </label>
+      <li key={ index } id={ answer._id } className={classes}
+        onClick={ this.changeAnswer.bind(this) }>
+        <span>
+          { answer.text }
+        </span>
+        <span>
+           ({ answer.voteCount } / { votePerc + '%' })
+        </span>
       </li>
     )
   }
@@ -92,8 +99,8 @@ class Poll extends PureComponent {
         <p><small>by { ( !!currentUser && createdBy._id === currentUser._id ) ? 'You' : createdBy.name }</small></p>
         <div className='poll-main'>
           <div className='poll-answers'>
-            { !voted && <ul onChange={ this.changeAnswer.bind(this) }>
-              { answers.map(this.renderAnswer) }
+            { !voted && <ul>
+              { answers.map((e, i, a) => this.renderAnswer(e, i, a)) }
               <li>
                 <button
                   className='button button-primary'
