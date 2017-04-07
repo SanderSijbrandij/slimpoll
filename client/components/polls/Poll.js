@@ -1,11 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import rd3 from 'rd3'
 import { loadCookie } from '../../helpers/session-id'
 import addVote from '../../actions/polls/vote'
-
-const PieChart = rd3.PieChart
+import PieChart from './PieChart'
 
 class Poll extends PureComponent {
   static propTypes = {
@@ -53,32 +51,7 @@ class Poll extends PureComponent {
       return answer.voteCount > 0
     })
 
-    const totalVotes = answers.reduce((curr, next) => {
-      return curr + next.voteCount
-    }, 0)
-
-    const data = answers.map((answer) => {
-      return {
-        label: answer.text,
-        value: Math.round(answer.voteCount/totalVotes * 100)
-      }
-    })
-
-    return (
-      <PieChart
-        data={data}
-        width={500}
-        height={300}
-        radius={100}
-        innerRadius={0}
-        sectorBorderColor='white'
-        showInnerLabels={true}
-        showOuterLabels={true}
-        valueTextFormatter={(val) => `${val}%`}
-        colors={d3.scale.category10()}
-        colorAccessor={(d, i) => i}
-      />
-    )
+    return <PieChart data={answers} />
   }
 
   render() {
