@@ -19,7 +19,7 @@ class Poll extends PureComponent {
     const answers = allAnswers.filter((answer) => {
       return answer.voteCount > 0
     })
-    return <PieChart data={answers} />
+    return <PieChart data={allAnswers} />
   }
 
   render() {
@@ -36,8 +36,7 @@ class Poll extends PureComponent {
         <h1>{ question }</h1>
         <p><small>by { ( !!currentUser && createdBy._id === currentUser._id ) ? 'You' : createdBy.name }</small></p>
         <div className='poll-main'>
-          { voted && <h3>Thanks for voting!</h3> }
-          { !voted && <OptionsList poll={poll} /> }
+          <OptionsList poll={poll} voted={voted} />
           <div className='poll-chart'>
             { totalVotes > 0 && this.renderPieChart(answers) }
           </div>

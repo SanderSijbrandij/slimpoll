@@ -4,7 +4,8 @@ import addVote from '../../actions/polls/vote'
 
 class OptionsList extends PureComponent {
   static propTypes = {
-    poll: PropTypes.object.isRequired
+    poll: PropTypes.object.isRequired,
+    voted: PropTypes.bool.isRequired
   }
 
   constructor() {
@@ -43,24 +44,26 @@ class OptionsList extends PureComponent {
   }
 
   render() {
-    const { poll } = this.props
+    const { poll, voted } = this.props
     const { question, answers, createdBy, voters } = poll
     const totalVotes = answers.reduce((curr, next) => {
       return curr + next.voteCount
     }, 0)
-
+    
     return (
       <div className='poll-answers'>
         <ul>
           { answers.map((e, i, a) => this.renderAnswer(e, i, a)) }
           <li className='answer-action'>
             <span>{ totalVotes} vote{ totalVotes !== 1 ? 's' : null }</span>
-            <button
-              style={{ marginTop: '10px' }}
-              className='button button-primary'
-              onClick={ this.submitVote.bind(this) }>
-              Vote
-            </button>
+            { !voted && 
+              <button
+                style={{ marginTop: '10px' }}
+                className='button button-primary'
+                onClick={ this.submitVote.bind(this) }>
+                Vote
+              </button>
+            }
           </li>
         </ul>
       </div>
