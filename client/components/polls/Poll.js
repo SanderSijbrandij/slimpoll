@@ -103,8 +103,9 @@ class Poll extends PureComponent {
               { answers.map((e, i, a) => this.renderAnswer(e, i, a)) }
               <li>
                 <button
+                  style={{ marginTop: '10px' }}
                   className='button button-primary'
-                  onClick={this.submitVote.bind(this)}>
+                  onClick={ this.submitVote.bind(this) }>
                   Vote
                 </button>
               </li>
