@@ -32,11 +32,11 @@ class OptionsList extends PureComponent {
     return (
       <li key={ index } id={ answer._id } className={classes}
         onClick={ this.changeAnswer.bind(this) }>
-        <span>
+        <span className='answer-text'>
           { answer.text }
         </span>
-        <span>
-           ({ answer.voteCount } / { votePerc + '%' })
+        <span className='answer-counts'>
+           <span>{ votePerc + '%' }</span>
         </span>
       </li>
     )
@@ -53,7 +53,8 @@ class OptionsList extends PureComponent {
       <div className='poll-answers'>
         <ul>
           { answers.map((e, i, a) => this.renderAnswer(e, i, a)) }
-          <li>
+          <li className='answer-action'>
+            <span>{ totalVotes} vote{ totalVotes !== 1 ? 's' : null }</span>
             <button
               style={{ marginTop: '10px' }}
               className='button button-primary'
