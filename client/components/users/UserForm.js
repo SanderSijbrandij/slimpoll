@@ -49,14 +49,13 @@ class UserForm extends PureComponent {
           { extended && <input type='password' ref='password_confirmation' name='password_confirmation' placeholder='Password Confirmation' className='input'  /> }
         </div>
           <div className='form-group'>
-            <button className='button button-fullwidth button-primary'>{ extended ? 'Sign up' : 'Sign in' }</button>
-          </div>
-          <div className='form-group'>
-            { this.renderOppositeForm.bind(this)() }
+            <div className="form-row">
+              { this.renderOppositeForm.bind(this)() }
+              <button className='button button-primary'>{ extended ? 'Sign up' : 'Sign in' }</button>
+            </div>
           </div>
       </form>
     )
   }
 }
-
 export default UserForm
