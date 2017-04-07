@@ -6,7 +6,7 @@ module.exports = function (hook) {
   .then((res) => {
     if (res.voters.indexOf(add.voters) !== -1) {
       hook.data = {}
-      throw new Error('Can\t vote twice.')
+      return Promise.reject('can\'t vote twice.')
     }
   })
   return Promise.resolve(poll)

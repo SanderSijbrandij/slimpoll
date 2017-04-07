@@ -8,7 +8,6 @@ import { loadCookie, saveCookie } from '../../helpers/session-id'
 const api = new API()
 const polls = api.service('polls')
 
-
 export default (pollId, answerId, answers) => {
   return (dispatch) => {
     dispatch(clearErrors())
@@ -29,10 +28,8 @@ export default (pollId, answerId, answers) => {
         $addToSet: { voters: sessionId }
       })
       .catch((err) => {
-        // re-fetch the polls, otherwise state will act strangely because it
-        // thinks it's been updated.
-        // -> good target for refactoring
-        dispatch(fetchPolls())
+        // this somehow still throws the update action, making the client think it's voted. it hasn't.
+        dispatch(addError('Voting Error', 'Can\'t vote twice.'))
       })
       .then(() => { dispatch(loading(false)) })
     }
