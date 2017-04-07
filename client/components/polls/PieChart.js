@@ -22,7 +22,7 @@ class PieChart extends PureComponent {
   updateChart(props) {
     const { data } = props
 
-    const pie = d3.pie().value(d => d.count)
+    const pie = d3.pie().value(d => d.voteCount)
     const slices = pie(data).sort(this.sortByName)
     const arc = d3.arc().innerRadius(0).outerRadius(75)
 
