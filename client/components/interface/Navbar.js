@@ -25,9 +25,7 @@ class Navbar extends PureComponent {
       <header className='page-header'>
         <span><Link to='/'>SlimPoll</Link></span>
         <nav className='navbar'>
-          <li><Link to="/all-polls">Polls</Link></li>
           { signedIn && <li><Link to="/create-poll">Create a poll</Link></li> }
-          { signedIn && <li><Link to="/my-polls">View your polls</Link></li> }
           { signedIn ? this.renderSignOut() : this.renderSignIn() }
         </nav>
       </header>

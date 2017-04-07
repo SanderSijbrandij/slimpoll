@@ -12,7 +12,6 @@ import NotFound from './components/generic/NotFound'
 import SignUp from './components/users/SignUp'
 import SignIn from './components/users/SignIn'
 
-import PollsList from './components/polls/PollsList'
 import CreatePoll from './components/polls/CreatePoll'
 import Poll from './components/polls/Poll'
 
@@ -25,8 +24,6 @@ render(
         <IndexRoute component={Home} />
         <Route path='/sign-up' component={SignUp} />
         <Route path='/sign-in' component={SignIn} />
-
-        <Route path='/all-polls' component={PollsList} />
         <Route path='/create-poll' component={CreatePoll} />
         <Route path='/poll/:pollId' component={Poll} />
 

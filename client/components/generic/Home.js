@@ -1,14 +1,23 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+
+import CreatePoll from '../polls/CreatePoll'
 
 class Home extends Component {
+  static propTypes = {
+    signedIn: PropTypes.bool.isRequired
+  }
+
   render() {
     return(
       <div className="home">
-        <h1>Welcome, Stranger!</h1>
-        <p>This is the generic Home page. It will show information and stuff.</p>
+        <h1>Welcome to SlimPoll!</h1>
+        <p>To create a new poll, please log in. To vote on a poll, please get the correct link from the poll creator.</p>
+        { this.props.signedIn && <hr /> }
+        { this.props.signedIn && <CreatePoll /> }
       </div>
     )
   }
 }
-
-export default Home
+const mapStateToProps = ({ currentUser }) => ({ signedIn: !!currentUser })
+export default connect(mapStateToProps)(Home)

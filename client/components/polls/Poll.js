@@ -108,7 +108,6 @@ class Poll extends PureComponent {
             { totalVotes > 0 && this.renderPieChart(answers) }
           </div>
         </div>
-        <Link to='/all-polls'>Back to polls list</Link>
       </div>
     )
   }
