@@ -11,6 +11,10 @@ class Poll extends PureComponent {
     currentUser: PropTypes.object
   }
 
+  static defaultProps = {
+    poll: { question: '', answers: [], createdBy: {}, voters: [] }
+  }
+
   constructor() {
     super()
     this.state = { answerId: null }
@@ -55,11 +59,8 @@ class Poll extends PureComponent {
   }
 
   render() {
-    // set initial values because Redux and Router are asynchronous
-    // => data might not exist yet
-    const initialValues = { question: '', answers: [], createdBy: {}, voters: [] }
     const { poll, currentUser } = this.props
-    const { question, answers, createdBy, voters } = poll || initialValues
+    const { question, answers, createdBy, voters } = poll
     const totalVotes = answers.reduce((curr, next) => {
       return curr + next.voteCount
     }, 0)
