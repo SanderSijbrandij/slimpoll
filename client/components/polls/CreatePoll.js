@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { history } from '../../store'
+import { Input, Label, Button, Segment, Divider, List } from 'semantic-ui-react'
 import savePoll from '../../actions/polls/create'
 
 class CreatePoll extends PureComponent {
@@ -8,6 +9,7 @@ class CreatePoll extends PureComponent {
     super()
     this.state = {
       question: '',
+      newanswer: '',
       answers: []
     }
   }
@@ -16,30 +18,27 @@ class CreatePoll extends PureComponent {
     if (!this.props.currentUser) { history.push('/sign-in') }
   }
 
-  handleKeyUp(event) {
-    this.setState({ question: this.refs.question.value })
-  }
+  setQuestion(event) { this.setState({ question: event.target.value })}
+  setNewAnswer(event) { this.setState({ newanswer: event.target.value }) }
 
   addAnswer(event) {
     event.preventDefault()
     this.setState({
       answers: this.state.answers.concat([
         {
-          text: this.refs.newanswer.value,
+          text: this.state.newanswer,
           voteCount: 0
         }
-      ])
+      ]),
+      newanswer: ''
     })
-    this.refs.newanswer.value = ''
+    this.refs.newanswer.inputRef.value = ''
   }
 
   removeAnswer(answer, event) {
     event.preventDefault()
     this.setState({
-      answers: this.state.answers.filter((current) => {
-        if (current === answer) { return false }
-        return true
-      })
+      answers: this.state.answers.filter((current) => (current !== answer))
     })
   }
 
@@ -50,54 +49,57 @@ class CreatePoll extends PureComponent {
     savePoll({ question, answers }, currentUser._id)
   }
 
-  renderQuestionInput() {
-    return (
-      <input type='text'
-        name='question' ref='question' maxLength='80'
-        placeholder='Enter your question'
-        defaultValue={ this.state.question }
-        onKeyUp={ this.handleKeyUp.bind(this) } />
-    )
-  }
-
   renderAnswer(answer, index) {
     return (
-      <li key={ index }>
-        <span>{ answer.text }</span>
-        <span onClick={ this.removeAnswer.bind(this, answer) }>remove</span>
-      </li>
+    <List.Item key={ index }>
+      { answer.text }
+      <List.Content floated='right'>
+        <Button negative size='mini'
+          onClick={ this.removeAnswer.bind(this, answer) }>
+          remove
+        </Button>
+      </List.Content>
+    </List.Item>  
     )
   }
 
   renderAnswers() {
     const { answers } = this.state
     return (
-      <ul>
+      <List divided size='large' verticalAlign='bottom'>
         { answers.map(this.renderAnswer.bind(this)) }
-      </ul>
+      </List>
     )
   }
 
   render() {
     return (
-      <section>
-        <div>
-          { this.renderQuestionInput() }
-        </div>
+      <Segment basic>
+        <Segment>
+          <Label color='orange' ribbon>Question</Label>
+          <Divider hidden />
+          <Input fluid placeholder='Name your poll' size='big' transparent
+            maxLength='80' ref='question' name='question' autoFocus
+            onChange={ this.setQuestion.bind(this) } />
+        </Segment>
+        
+        <Segment>
+          <Label color='orange' ribbon>Options</Label>
+          <Divider hidden />
+          { this.renderAnswers() }
         <form onSubmit={ this.addAnswer.bind(this) }>
-          <div>
-            { this.renderAnswers() }
-            <div>
-              <input type='text'
-                placeholder='Enter an option' maxLength='60'
-                name='newanswer' ref='newanswer' />
-            </div>
-          </div>
+          <Input placeholder='Add an option'
+            maxLength='60' ref='newanswer' name='newanswer' 
+            onChange={ this.setNewAnswer.bind(this) } />
         </form>
-        <div>
-          <button onClick={ this.savePoll.bind(this) }>Create</button>
-        </div>
-      </section>
+        </Segment>
+
+        <Button floated='right' color='orange'
+          onClick={ this.savePoll.bind(this) }>
+          Create poll
+
+        </Button>
+      </Segment>
     )
   }
 }
