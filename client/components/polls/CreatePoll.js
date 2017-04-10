@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-
+import { history } from '../../store'
 import savePoll from '../../actions/polls/create'
 
 class CreatePoll extends PureComponent {
@@ -10,6 +10,10 @@ class CreatePoll extends PureComponent {
       question: '',
       answers: []
     }
+  }
+
+  componentDidMount() {
+    if (!this.props.currentUser) { history.push('/sign-in') }
   }
 
   handleKeyUp(event) {
