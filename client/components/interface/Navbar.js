@@ -22,9 +22,9 @@ class Navbar extends PureComponent {
   render() {
     const { signedIn } = this.props
     return(
-      <header className='page-header'>
+      <header>
         <span><Link to='/'>SlimPoll</Link></span>
-        <nav className='navbar'>
+        <nav>
           { signedIn && <li><Link to="/create-poll">Create a poll</Link></li> }
           { signedIn ? this.renderSignOut() : this.renderSignIn() }
         </nav>

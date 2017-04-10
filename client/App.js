@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import './assets/stylesheets/main.sass'
 import Navbar from './components/interface/Navbar'
 import Loading from './components/interface/Loading'
 import ErrorComp from './components/interface/Error'
@@ -27,7 +26,7 @@ class App extends Component {
         <Navbar />
         <Loading />
         <ErrorComp />
-        <main className="app">
+        <main>
           {this.props.children}
         </main>
       </div>

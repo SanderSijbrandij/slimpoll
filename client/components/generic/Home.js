@@ -10,7 +10,7 @@ class Home extends Component {
 
   render() {
     return(
-      <div className="home">
+      <div>
         <h1>Welcome to SlimPoll!</h1>
         <p>To create a new poll, please log in. To vote on a poll, please get the correct link from the poll creator.</p>
         { this.props.signedIn && <hr /> }

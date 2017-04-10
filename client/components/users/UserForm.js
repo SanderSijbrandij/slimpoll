@@ -42,16 +42,16 @@ class UserForm extends PureComponent {
     const { extended } = this.props
     return(
       <form onSubmit={ extended ? this.handleSignUp.bind(this) : this.handleSignIn.bind(this) }>
-        <div className='form-group'>
-          { extended && <input type='text' ref='name' name='name' placeholder='Username' className='input' /> }
-          <input type='email' ref='email' name='email' placeholder='Email Address' className='input'  />
-          <input type='password' ref='password' name='password' placeholder='Password' className='input'  />
-          { extended && <input type='password' ref='password_confirmation' name='password_confirmation' placeholder='Password Confirmation' className='input'  /> }
+        <div>
+          { extended && <input type='text' ref='name' name='name' placeholder='Username' /> }
+          <input type='email' ref='email' name='email' placeholder='Email Address' />
+          <input type='password' ref='password' name='password' placeholder='Password' />
+          { extended && <input type='password' ref='password_confirmation' name='password_confirmation' placeholder='Password Confirmation' /> }
         </div>
-          <div className='form-group'>
-            <div className="form-row">
+          <div>
+            <div>
               { this.renderOppositeForm.bind(this)() }
-              <button className='button button-primary'>{ extended ? 'Sign up' : 'Sign in' }</button>
+              <button>{ extended ? 'Sign up' : 'Sign in' }</button>
             </div>
           </div>
       </form>

@@ -26,17 +26,13 @@ class OptionsList extends PureComponent {
     const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
     const votePerc = (totalVotes === 0) ? 0 : Math.round(answer.voteCount / totalVotes * 100)
 
-    const classes = (this.state.answerId == answer._id) ? 
-      'answer-option answer-active' : 
-      'answer-option'
-
     return (
-      <li key={ index } id={ answer._id } className={classes}
+      <li key={ index } id={ answer._id }
         onClick={ this.changeAnswer.bind(this) }>
-        <span className='answer-text'>
+        <span>
           { answer.text }
         </span>
-        <span className='answer-counts'>
+        <span >
            <span>{ votePerc + '%' }</span>
         </span>
       </li>
@@ -51,15 +47,14 @@ class OptionsList extends PureComponent {
     }, 0)
     
     return (
-      <div className='poll-answers'>
+      <div >
         <ul>
           { answers.map((e, i, a) => this.renderAnswer(e, i, a)) }
-          <li className='answer-action'>
+          <li >
             <span>{ totalVotes} vote{ totalVotes !== 1 ? 's' : null }</span>
             { !voted && 
               <button
                 style={{ marginTop: '10px' }}
-                className='button button-primary'
                 onClick={ this.submitVote.bind(this) }>
                 Vote
               </button>

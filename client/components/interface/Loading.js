@@ -8,10 +8,9 @@ class Loading extends PureComponent {
 
   render() {
     const { loading } = this.props
-    const classes = loading ? 'loading' : 'notloading'
 
     return (
-      <div className={classes}>
+      <div>
       { !loading && null }
       { loading && <span>Loading...</span> }
       </div>

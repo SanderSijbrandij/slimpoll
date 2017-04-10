@@ -14,8 +14,8 @@ class ErrorComp extends PureComponent {
     const { error, clearErrors } = this.props
     if (!!error) {
       return (
-        <div className='error'>
-          <div className='closebutton'>
+        <div>
+          <div>
             <h3>{ error.type }</h3>
             <img src={ closebutton } width='25px' height='25px' onClick={ clearErrors } />
           </div>

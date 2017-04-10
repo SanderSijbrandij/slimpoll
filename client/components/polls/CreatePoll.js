@@ -48,7 +48,7 @@ class CreatePoll extends PureComponent {
 
   renderQuestionInput() {
     return (
-      <input type='text' className='input input-question'
+      <input type='text'
         name='question' ref='question' maxLength='80'
         placeholder='Enter your question'
         defaultValue={ this.state.question }
@@ -59,8 +59,8 @@ class CreatePoll extends PureComponent {
   renderAnswer(answer, index) {
     return (
       <li key={ index }>
-        <span className='answer-text'>{ answer.text }</span>
-        <span className='button button-error' onClick={ this.removeAnswer.bind(this, answer) }>remove</span>
+        <span>{ answer.text }</span>
+        <span onClick={ this.removeAnswer.bind(this, answer) }>remove</span>
       </li>
     )
   }
@@ -68,7 +68,7 @@ class CreatePoll extends PureComponent {
   renderAnswers() {
     const { answers } = this.state
     return (
-      <ul className='current-answers'>
+      <ul>
         { answers.map(this.renderAnswer.bind(this)) }
       </ul>
     )
@@ -76,22 +76,22 @@ class CreatePoll extends PureComponent {
 
   render() {
     return (
-      <section className='new-poll'>
-        <div className='form-group'>
+      <section>
+        <div>
           { this.renderQuestionInput() }
         </div>
         <form onSubmit={ this.addAnswer.bind(this) }>
-          <div className='form-group'>
+          <div>
             { this.renderAnswers() }
-            <div className='form-row'>
-              <input type='text' className='input input-answer'
+            <div>
+              <input type='text'
                 placeholder='Enter an option' maxLength='60'
                 name='newanswer' ref='newanswer' />
             </div>
           </div>
         </form>
-        <div className='form-group'>
-          <button className='button button-primary' onClick={ this.savePoll.bind(this) }>Create</button>
+        <div>
+          <button onClick={ this.savePoll.bind(this) }>Create</button>
         </div>
       </section>
     )

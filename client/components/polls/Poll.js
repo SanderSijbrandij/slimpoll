@@ -32,12 +32,12 @@ class Poll extends PureComponent {
     const voted = (!!sessionId && voters.indexOf(sessionId) !== -1)
 
     return (
-      <div className='poll'>
+      <div>
         <h1>{ question }</h1>
         <p><small>by { ( !!currentUser && createdBy._id === currentUser._id ) ? 'You' : createdBy.name }</small></p>
-        <div className='poll-main'>
+        <div>
           <OptionsList poll={poll} voted={voted} />
-          <div className='poll-chart'>
+          <div>
             { totalVotes > 0 && this.renderPieChart(answers) }
           </div>
         </div>
