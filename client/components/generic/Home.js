@@ -4,10 +4,6 @@ import { connect } from 'react-redux'
 import CreatePoll from '../polls/CreatePoll'
 
 class Home extends Component {
-  static propTypes = {
-    signedIn: PropTypes.bool.isRequired
-  }
-
   render() {
     return(
       <div>
@@ -17,5 +13,5 @@ class Home extends Component {
     )
   }
 }
-const mapStateToProps = ({ currentUser }) => ({ signedIn: !!currentUser })
-export default connect(mapStateToProps)(Home)
+
+export default Home
