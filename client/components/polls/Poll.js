@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { loadCookie } from '../../helpers/session-id'
-
+import { Segment, Header, Grid } from 'semantic-ui-react'
 import OptionsList from './OptionsList'
 import PieChart from './PieChart'
 
@@ -15,13 +15,6 @@ class Poll extends PureComponent {
     poll: { question: '', answers: [], createdBy: {}, voters: [] }
   }
 
-  renderPieChart(allAnswers) {
-    const answers = allAnswers.filter((answer) => {
-      return answer.voteCount > 0
-    })
-    return <PieChart data={allAnswers} />
-  }
-
   render() {
     const { poll, currentUser } = this.props
     const { question, answers, createdBy, voters } = poll
@@ -30,17 +23,20 @@ class Poll extends PureComponent {
     }, 0)
     const sessionId = loadCookie() || null
     const voted = (!!sessionId && voters.indexOf(sessionId) !== -1)
-
     return (
       <div>
-        <h1>{ question }</h1>
-        <p><small>by { ( !!currentUser && createdBy._id === currentUser._id ) ? 'You' : createdBy.name }</small></p>
-        <div>
+        <Header as='h2' attached='top'>
+          { question }
+          <Header.Subheader>
+              by { ( !!currentUser && createdBy._id === currentUser._id ) ? 
+              'You' : 
+              createdBy.name }
+          </Header.Subheader>
+        </Header>
+        <Segment attached>         
           <OptionsList poll={poll} voted={voted} />
-          <div>
-            { totalVotes > 0 && this.renderPieChart(answers) }
-          </div>
-        </div>
+          { totalVotes > 0 && <PieChart answers={answers} /> }
+        </Segment>
       </div>
     )
   }
