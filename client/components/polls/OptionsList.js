@@ -53,12 +53,10 @@ class OptionsList extends PureComponent {
           { answers.map((e, i, a) => this.renderAnswer(e, i, a)) }
         </List>
         <span>total { totalVotes } vote{ totalVotes !== 1 ? 's' : null }</span>
-        { !voted && 
-          <Button color='orange' floated='right'
+          <Button color='orange' floated='right' disabled={voted}
             onClick={ this.submitVote.bind(this) }>
-            Vote
+            { voted ? 'You already voted' : 'Vote' }
           </Button>
-        }
       </Segment>
     )
   }

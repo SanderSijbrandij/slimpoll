@@ -35,7 +35,7 @@ class Poll extends PureComponent {
         </Header>
         <Segment attached>         
           <OptionsList poll={poll} voted={voted} />
-          { totalVotes > 0 && <PieChart answers={answers} /> }
+          { totalVotes > 0 && <PieChart data={answers} /> }
         </Segment>
       </div>
     )

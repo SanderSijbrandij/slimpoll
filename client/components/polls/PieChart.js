@@ -1,15 +1,15 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import * as d3 from 'd3'
 
-class PieChart extends PureComponent {
+class PieChart extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired
   }
 
   static defaultProps = {
     data: [
-      {text: 'No', voteCount: 1}, 
-      {text: 'Yes', voteCount: 2}
+      {text: 'default', voteCount: 1}, 
+      {text: 'props', voteCount: 1}
     ]
   }
 
