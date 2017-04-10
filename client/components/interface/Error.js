@@ -2,7 +2,7 @@ import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import clearErrors from '../../actions/interface/clear-errors'
 
-import closebutton from '../../assets/images/close.svg'
+import { Modal, Button } from 'semantic-ui-react'
 
 class ErrorComp extends PureComponent {
   static propTypes = {
@@ -12,19 +12,15 @@ class ErrorComp extends PureComponent {
 
   render() {
     const { error, clearErrors } = this.props
-    if (!!error) {
       return (
-        <div>
-          <div>
-            <h3>{ error.type }</h3>
-            <img src={ closebutton } width='25px' height='25px' onClick={ clearErrors } />
-          </div>
-          <p>{ error.message }</p>
-        </div>
+        <Modal size='small' open={!!error} onClose={clearErrors}>
+          <Modal.Header>{ error.type }</Modal.Header>
+          <Modal.Content><p>{ error.message }</p></Modal.Content>
+          <Modal.Actions>
+            <Button negative content='Close' onClick={clearErrors} />
+          </Modal.Actions>
+        </Modal>
       )
-    } else {
-      return null
-    }
   }
 }
 
