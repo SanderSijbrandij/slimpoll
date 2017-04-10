@@ -12,9 +12,9 @@ class Loading extends PureComponent {
     const { loading } = this.props
 
     return (
-      <Loader active={true}>Loading</Loader>
+      <Loader active={this.props.loading}>Loading</Loader>
     )
   }
 }
-const mapStateToProps = ({ loading }) => ({ loading })
-export default connect(mapStateToProps)(Loading)
+
+export default Loading

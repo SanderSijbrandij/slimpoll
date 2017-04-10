@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { Container, Segment } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 
 import Navbar from './components/interface/Navbar'
 import Loading from './components/interface/Loading'
@@ -9,6 +9,7 @@ import ErrorComp from './components/interface/Error'
 
 import fetchPolls from './actions/polls/fetch'
 import subscribeToPolls from './actions/polls/subscribe'
+import clearErrors from './actions/interface/clear-errors'
 
 class App extends Component {
   static propTypes = {
@@ -25,11 +26,9 @@ class App extends Component {
   render() {
     return(
       <Container text={true}>
-        <Loading />
-        <ErrorComp />
-        <Segment>
-          <Navbar />
-        </Segment>
+        <Loading loading={this.props.loading} />
+        <ErrorComp error={this.props.error} clearErrors={this.props.clearErrors} />
+        <Navbar />
         <main>
           {this.props.children}
         </main>
@@ -38,5 +37,15 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({subscribedToPolls}) => ({ subscribedToPolls })
-export default connect(mapStateToProps, { subscribeToPolls, fetchPolls })(App)
+const mapStateToProps = (state) => ({ 
+  subscribedToPolls: state.subscribedToPolls,
+  loading: state.loading,
+  error: state.error
+})
+
+const actions = {
+  subscribeToPolls,
+  fetchPolls,
+  clearErrors
+}
+export default connect(mapStateToProps, actions)(App)

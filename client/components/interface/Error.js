@@ -24,5 +24,4 @@ class ErrorComp extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ error }) => ({ error })
-export default connect(mapStateToProps, { clearErrors })(ErrorComp)
+export default ErrorComp
