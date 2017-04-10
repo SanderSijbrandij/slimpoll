@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+import { Container, Segment } from 'semantic-ui-react'
+
 import Navbar from './components/interface/Navbar'
 import Loading from './components/interface/Loading'
 import ErrorComp from './components/interface/Error'
@@ -22,17 +24,19 @@ class App extends Component {
 
   render() {
     return(
-      <div>
-        <Navbar />
+      <Container text={true}>
         <Loading />
         <ErrorComp />
+        <Segment>
+          <Navbar />
+        </Segment>
         <main>
           {this.props.children}
         </main>
-      </div>
+      </Container>
     );
   }
 }
 
-const mapStateToProps = ({ subscribedToPolls }) => ({ subscribedToPolls })
+const mapStateToProps = ({subscribedToPolls}) => ({ subscribedToPolls })
 export default connect(mapStateToProps, { subscribeToPolls, fetchPolls })(App)

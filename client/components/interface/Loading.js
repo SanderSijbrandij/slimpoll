@@ -1,6 +1,8 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+import { Dimmer, Loader } from 'semantic-ui-react'
+
 class Loading extends PureComponent {
   static propTypes = {
     loading: PropTypes.bool.isRequired
@@ -10,10 +12,7 @@ class Loading extends PureComponent {
     const { loading } = this.props
 
     return (
-      <div>
-      { !loading && null }
-      { loading && <span>Loading...</span> }
-      </div>
+      <Loader active={true}>Loading</Loader>
     )
   }
 }
