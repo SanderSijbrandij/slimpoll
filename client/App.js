@@ -29,9 +29,7 @@ class App extends Component {
         <Loading loading={this.props.loading} />
         <ErrorComp error={this.props.error} clearErrors={this.props.clearErrors} />
         <Navbar />
-        <main>
-          {this.props.children}
-        </main>
+        <main>{this.props.children}</main>
       </Container>
     );
   }

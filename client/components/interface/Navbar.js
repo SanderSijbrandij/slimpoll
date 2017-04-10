@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { Menu, Button, Header, Icon } from 'semantic-ui-react'
 
 import signOut from '../../actions/users/sign-out'
 
@@ -22,16 +23,28 @@ class Navbar extends PureComponent {
   render() {
     const { signedIn } = this.props
     return(
-      <header>
-        <span><Link to='/'>SlimPoll</Link></span>
-        <nav>
-          { signedIn && <li><Link to="/create-poll">Create a poll</Link></li> }
-          { signedIn ? this.renderSignOut() : this.renderSignIn() }
-        </nav>
-      </header>
+      <Menu stackable borderless>
+        <Menu.Item as={Link} to='/'><Header color='orange'>SlimPoll</Header></Menu.Item>
+        { signedIn && 
+          <Menu.Item>
+            <Button color='orange' as={Link} to='/create-poll'>
+              <Button.Content visible>Create a poll</Button.Content>
+            </Button>
+          </Menu.Item> 
+        }
+        <Menu.Menu position='right'>
+          { signedIn &&
+            <Menu.Item onClick={this.props.signOut}>Sign out</Menu.Item>
+          }
+          { !signedIn &&
+            <Menu.Item as={Link} to='sign-in'>Sign in</Menu.Item>
+          }
+        </Menu.Menu>
+      </Menu>
     )
   }
 }
+
 const mapStateToProps = ({ currentUser }) => ({
   currentUser,
   signedIn: !!currentUser
