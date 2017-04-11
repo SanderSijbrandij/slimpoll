@@ -33,9 +33,17 @@ class Poll extends PureComponent {
               createdBy.name }
           </Header.Subheader>
         </Header>
-        <Segment attached>         
-          <OptionsList poll={poll} voted={voted} />
-          { totalVotes > 0 && <PieChart data={answers} /> }
+        <Segment attached>
+          <Grid>
+            <Grid.Row columns={2} divided>
+              <Grid.Column>
+                <OptionsList poll={poll} voted={voted} />
+              </Grid.Column>
+              <Grid.Column>
+                { totalVotes > 0 && <PieChart data={answers} /> }
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>      
         </Segment>
       </div>
     )
