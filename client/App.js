@@ -10,6 +10,7 @@ import ErrorComp from './components/interface/Error'
 import fetchPolls from './actions/polls/fetch'
 import subscribeToPolls from './actions/polls/subscribe'
 import clearErrors from './actions/interface/clear-errors'
+import signOut from './actions/users/sign-out'
 
 class App extends Component {
   static propTypes = {
@@ -24,12 +25,15 @@ class App extends Component {
   }
 
   render() {
+    const { loading, error, currentUser, signedIn, children,
+      clearErrors, signOut } = this.props
+
     return(
       <Container text={true}>
-        <Loading loading={this.props.loading} />
-        <ErrorComp error={this.props.error} clearErrors={this.props.clearErrors} />
-        <Navbar />
-        <main>{this.props.children}</main>
+        <Loading loading={loading} />
+        <ErrorComp error={error} clearErrors={clearErrors} />
+        <Navbar currentUser={currentUser} signedIn={signedIn} signOut={signOut} />
+        <main>{children}</main>
       </Container>
     );
   }
@@ -38,12 +42,15 @@ class App extends Component {
 const mapStateToProps = (state) => ({ 
   subscribedToPolls: state.subscribedToPolls,
   loading: state.loading,
-  error: state.error
+  error: state.error,
+  currentUser: state.currentUser,
+  signedIn: !!state.currentUser
 })
 
 const actions = {
   subscribeToPolls,
   fetchPolls,
-  clearErrors
+  clearErrors,
+  signOut
 }
 export default connect(mapStateToProps, actions)(App)

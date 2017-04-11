@@ -63,20 +63,11 @@ class CreatePoll extends PureComponent {
     )
   }
 
-  renderAnswers() {
-    const { answers } = this.state
-    return (
-      <List divided size='large' verticalAlign='bottom'>
-        { answers.map(this.renderAnswer.bind(this)) }
-      </List>
-    )
-  }
-
   render() {
     return (
       <Segment basic>
         <Segment>
-          <Label color='orange' ribbon>Question</Label>
+          <Label size='large' ribbon>Question</Label>
           <Divider hidden />
           <Input fluid placeholder='Name your poll' size='big' transparent
             maxLength='80' ref='question' name='question' autoFocus
@@ -84,9 +75,13 @@ class CreatePoll extends PureComponent {
         </Segment>
         
         <Segment>
-          <Label color='orange' ribbon>Options</Label>
+          <Label size='large' ribbon>Options</Label>
           <Divider hidden />
-          { this.renderAnswers() }
+          
+          <List divided size='large' verticalAlign='bottom'>
+            { this.state.answers.map(this.renderAnswer.bind(this)) }
+          </List>
+
         <form onSubmit={ this.addAnswer.bind(this) }>
           <Input placeholder='Add an option'
             maxLength='60' ref='newanswer' name='newanswer' 
