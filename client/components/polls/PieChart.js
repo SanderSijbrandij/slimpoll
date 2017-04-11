@@ -19,6 +19,11 @@ class PieChart extends Component {
     return first > second ? 1 : -1
   }
 
+  votePerc(amount) {
+    const totalVotes = this.props.data.reduce((curr, next) => { return curr + next.voteCount }, 0)
+    return (totalVotes === 0) ? '0%' : `${Math.round(amount / totalVotes * 100)}%`
+  }
+
   updateChart(props) {
     const { data } = props
 
@@ -46,7 +51,7 @@ class PieChart extends Component {
     
     const svg = d3.select('svg#pie')
     const chart = svg.append('g')
-      .attr('transform', 'translate(200, 75)')
+      .attr('transform', 'translate(161, 100)')
     
     chart.selectAll('path.slice')
       .data(slices)
@@ -76,7 +81,7 @@ class PieChart extends Component {
   }
 
   render() {
-    return <svg id='pie'></svg>
+    return <svg id='pie' width='322' height='200'></svg>
   }
 }
 
