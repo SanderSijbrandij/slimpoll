@@ -82,11 +82,11 @@ class CreatePoll extends PureComponent {
             { this.state.answers.map(this.renderAnswer.bind(this)) }
           </List>
 
-        <form onSubmit={ this.addAnswer.bind(this) }>
-          <Input placeholder='Add an option'
-            maxLength='60' ref='newanswer' name='newanswer' 
-            onChange={ this.setNewAnswer.bind(this) } />
-        </form>
+          <form onSubmit={ this.addAnswer.bind(this) }>
+            <Input placeholder='Add an option' action='Add'
+              maxLength='60' ref='newanswer' name='newanswer' 
+              onChange={ this.setNewAnswer.bind(this) } />
+          </form>
         </Segment>
 
         <Segment>

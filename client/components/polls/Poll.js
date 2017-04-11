@@ -1,7 +1,8 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import CopyToClipboard from 'react-copy-to-clipboard'
 import { loadCookie } from '../../helpers/session-id'
-import { Segment, Header, Grid } from 'semantic-ui-react'
+import { Segment, Header, Grid, Icon, Button } from 'semantic-ui-react'
 import OptionsList from './OptionsList'
 import PieChart from './PieChart'
 
@@ -15,6 +16,11 @@ class Poll extends PureComponent {
     poll: { question: '', answers: [], createdBy: {}, voters: [] }
   }
 
+  constructor() {
+    super()
+    this.state = { copied: false }
+  }
+
   render() {
     const { poll, currentUser } = this.props
     const { question, answers, createdBy, voters } = poll
@@ -23,6 +29,7 @@ class Poll extends PureComponent {
     }, 0)
     const sessionId = loadCookie() || null
     const voted = (!!sessionId && voters.indexOf(sessionId) !== -1)
+
     return (
       <div>
         <Header as='h2' attached='top' style={{ wordWrap: 'break-word' }}>
@@ -44,6 +51,19 @@ class Poll extends PureComponent {
               </Grid.Column>
             </Grid.Row>
           </Grid>      
+        </Segment>
+
+        <Header attached='top' as='h4'>Poll URL</Header>
+        <Segment attached>
+          <CopyToClipboard text={ window.location.href }
+            onCopy={ () => this.setState({ copied: true }) }>
+          <Button animated fluid>
+            <Button.Content visible>{ window.location.href }</Button.Content>
+            <Button.Content hidden>
+              {this.state.copied ? 'Copied!' : 'Click to copy the URL to your clipboard'}
+            </Button.Content>
+          </Button>
+          </CopyToClipboard>
         </Segment>
       </div>
     )
