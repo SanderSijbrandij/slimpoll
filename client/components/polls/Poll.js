@@ -25,7 +25,7 @@ class Poll extends PureComponent {
     const voted = (!!sessionId && voters.indexOf(sessionId) !== -1)
     return (
       <div>
-        <Header as='h2' attached='top'>
+        <Header as='h2' attached='top' style={{ wordWrap: 'break-word' }}>
           { question }
           <Header.Subheader>
               by { ( !!currentUser && createdBy._id === currentUser._id ) ? 

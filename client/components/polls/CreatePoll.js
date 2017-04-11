@@ -52,7 +52,7 @@ class CreatePoll extends PureComponent {
   renderAnswer(answer, index) {
     return (
     <List.Item key={ index }>
-      { answer.text }
+      <span style={{ wordWrap: 'break-word' }}>{ answer.text }</span>
       <List.Content floated='right'>
         <Button negative size='mini'
           onClick={ this.removeAnswer.bind(this, answer) }>
