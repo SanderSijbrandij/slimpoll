@@ -56,7 +56,7 @@ class CreatePoll extends PureComponent {
       <List.Content floated='right'>
         <Button negative size='mini'
           onClick={ this.removeAnswer.bind(this, answer) }>
-          remove
+          Remove
         </Button>
       </List.Content>
     </List.Item>  
@@ -67,7 +67,7 @@ class CreatePoll extends PureComponent {
     return (
       <Segment basic>
         <Segment>
-          <Label size='large' ribbon>Question</Label>
+          <Label size='large' ribbon>1. Ask a Question</Label>
           <Divider hidden />
           <Input fluid placeholder='Name your poll' size='big' transparent
             maxLength='80' ref='question' name='question' autoFocus
@@ -75,7 +75,7 @@ class CreatePoll extends PureComponent {
         </Segment>
         
         <Segment>
-          <Label size='large' ribbon>Options</Label>
+          <Label size='large' ribbon>2. Add your Options</Label>
           <Divider hidden />
           
           <List divided size='large' verticalAlign='bottom'>
@@ -89,11 +89,13 @@ class CreatePoll extends PureComponent {
         </form>
         </Segment>
 
-        <Button floated='right' color='orange'
-          onClick={ this.savePoll.bind(this) }>
-          Create poll
-
-        </Button>
+        <Segment>
+          <Label size='large' ribbon>3. Create your poll</Label>
+          <Divider hidden />
+          <Button fluid color='orange' onClick={ this.savePoll.bind(this) }>
+            Create poll
+          </Button>
+        </Segment>
       </Segment>
     )
   }

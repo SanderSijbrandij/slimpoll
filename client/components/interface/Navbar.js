@@ -18,7 +18,7 @@ class Navbar extends PureComponent {
           <Menu.Item>
             <Button basic animated='vertical' color='orange' as={Link} to='/create-poll'>
               <Button.Content visible>Create a poll</Button.Content>
-              <Button.Content hidden>Create a poll</Button.Content>
+              <Button.Content hidden>Simple as 1. 2. 3.</Button.Content>
             </Button>
           </Menu.Item> 
         }
