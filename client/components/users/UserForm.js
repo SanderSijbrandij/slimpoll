@@ -1,61 +1,87 @@
 import React, { PureComponent } from 'react'
 import { history } from '../../store'
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
+
+import { Divider, Input, Button, Modal } from 'semantic-ui-react'
 
 class UserForm extends PureComponent {
-  handleSignUp(event) {
-    event.preventDefault()
+  constructor() {
+    super()
+    this.state = { opened: true }
+  }
+
+  handleClose() {
+    this.setState({ opened: false })
+    history.push('/')
+  }
+
+  handleSignUp() {
+    const { email, user, password, password_confirmation } = this.refs
 
     // add validations here.
-    if (true) {
-      const user = {
-        name: this.refs.name.value,
-        email: this.refs.email.value,
-        password: this.refs.password.value
+    if (password.inputRef.value === password_confirmation.inputRef.value) {
+      const newUser = {
+        name: user.inputRef.value,
+        email: email.inputRef.value,
+        password: password.inputRef.value
       }
-      this.props.submitFunc(user)
+      this.props.submitFunc(newUser)
     }
     return false
   }
 
   handleSignIn(event) {
     event.preventDefault()
+    const { email, password } = this.refs
 
+    // add validations here.
     if (true) {
       const user = {
-        email: this.refs.email.value,
-        password: this.refs.password.value
+        email: email.inputRef.value,
+        password: password.inputRef.value
       }
       this.props.submitFunc(user)
     }
     return false
   }
 
-  renderOppositeForm() {
-    const { extended } = this.props
-    return extended ?
-      <Link to='/sign-in'>Already have an account? Sign in</Link> :
-      <Link to='/sign-up'>Don't have an account? Sign up</Link>
-  }
-
   render() {
-    const { extended } = this.props
-    return(
-      <form onSubmit={ extended ? this.handleSignUp.bind(this) : this.handleSignIn.bind(this) }>
-        <div>
-          { extended && <input type='text' ref='name' name='name' placeholder='Username' /> }
-          <input type='email' ref='email' name='email' placeholder='Email Address' />
-          <input type='password' ref='password' name='password' placeholder='Password' />
-          { extended && <input type='password' ref='password_confirmation' name='password_confirmation' placeholder='Password Confirmation' /> }
-        </div>
-          <div>
-            <div>
-              { this.renderOppositeForm.bind(this)() }
-              <button>{ extended ? 'Sign up' : 'Sign in' }</button>
-            </div>
-          </div>
-      </form>
+    const { extended, signedIn } = this.props
+
+    return (
+      <Modal open={!signedIn && this.state.opened} onClose={ () => this.handleClose() } dimmer size='small' closeIcon='close'>
+        <Modal.Header>
+          { extended ? 'Sign up' : 'Sign in' }
+        </Modal.Header>
+        <Modal.Content>
+          <form onSubmit={ extended ? (event) => this.handleSignUp(event) : (event) => this.handleSignIn(event) }>
+          <Input fluid ref='email' type='email' icon='envelope' iconPosition='left' placeholder='Email' />
+          <Divider hidden />
+          
+          { extended && <Input fluid ref='user' type='text' icon='user' iconPosition='left' placeholder='Username' /> }
+          { extended && <Divider hidden /> }
+          
+          <Input fluid ref='password'  type='password' icon='lock' iconPosition='left' placeholder='Password' />
+          <Divider hidden />
+          
+          { extended && <Input fluid ref='password_confirmation' type='password' icon='lock' iconPosition='left'  placeholder='Repeat Password' /> }
+          { extended && <Divider hidden /> }
+          
+          <Input type='submit'>
+            <Button color='orange'>{ extended ? 'Sign up' : 'Sign in' }</Button>
+          </Input>
+          <Divider />
+
+          { extended ? 
+            <Link to='/sign-in'>Already have an account? Sign in</Link> : 
+            <Link to='/sign-up'>Don't have an account? Sign up</Link> }
+          </form>
+        </Modal.Content>
+      </Modal>
     )
   }
 }
-export default UserForm
+
+const mapStateToProps = ({ currentUser }) => ({ signedIn: !!currentUser })
+export default connect(mapStateToProps)(UserForm)

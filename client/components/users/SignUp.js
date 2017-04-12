@@ -7,10 +7,7 @@ import UserForm from './UserForm'
 class SignUp extends PureComponent {
   render() {
     return (
-      <div>
-        <h1>Sign up</h1>
-        <UserForm extended={true} submitFunc={this.props.signUp} />
-      </div>
+      <UserForm extended={true} submitFunc={this.props.signUp} />
     )
   }
 }
