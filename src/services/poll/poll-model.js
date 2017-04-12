@@ -13,11 +13,16 @@ const answerSchema = new Schema({
   voteCount: { type: Number, required: true, default: 0 }
 });
 
+const voterSchema = new Schema({
+  sessionId: { type: String },
+  answerId: { type: Schema.ObjectId }
+});
+
 const pollSchema = new Schema({
   createdBy: { type: Schema.ObjectId },
   question: { type: String, required: true },
   answers: [answerSchema],
-  voters: [{ type: String }],
+  voters: [voterSchema],
   createdAt: { type: Date, 'default': Date.now },
   updatedAt: { type: Date, 'default': Date.now }
 });

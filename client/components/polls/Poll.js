@@ -21,6 +21,12 @@ class Poll extends PureComponent {
     this.state = { copied: false }
   }
 
+  filterVotersBySession(voters, sessionId) {
+    return voters.filter(voter => {
+      return voter.sessionId == sessionId
+    })
+  }
+
   render() {
     const { poll, currentUser } = this.props
     const { question, answers, createdBy, voters } = poll
@@ -28,7 +34,9 @@ class Poll extends PureComponent {
       return curr + next.voteCount
     }, 0)
     const sessionId = loadCookie() || null
-    const voted = (!!sessionId && voters.indexOf(sessionId) !== -1)
+    const sessionVoter = this.filterVotersBySession(voters, sessionId)
+    const voted = (!!sessionId && sessionVoter.length > 0)
+    const votedOn = !!sessionVoter[0] ? sessionVoter[0].answerId : 'nobody'
 
     return (
       <div>
@@ -44,7 +52,7 @@ class Poll extends PureComponent {
           <Grid>
             <Grid.Row columns={2} divided>
               <Grid.Column>
-                <OptionsList poll={poll} voted={voted} />
+                <OptionsList poll={poll} voted={voted} votedOn={votedOn} />
               </Grid.Column>
               <Grid.Column>
                 { totalVotes > 0 && <PieChart data={answers} /> }

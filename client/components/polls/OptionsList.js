@@ -20,7 +20,9 @@ class OptionsList extends PureComponent {
     this.state = { answerId: null }
   }
 
-  changeAnswer(answer) { this.setState({ answerId: answer._id }) }
+  changeAnswer(answer) { 
+    if (this.props.votedOn === 'nobody') { this.setState({ answerId: answer._id }) }
+  }
 
   submitVote(event) {
     event.preventDefault()
@@ -30,12 +32,19 @@ class OptionsList extends PureComponent {
   renderAnswer(answer, index, answers) {
     const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
     const votePerc = (totalVotes === 0) ? 0 : Math.round(answer.voteCount / totalVotes * 100)
-    const checkboxColor = (answer._id === this.state.answerId) ? this.props.namedColor(answer.text) : 'grey'
-    const name = (answer._id === this.state.answerId) ? 'checkmark box' : 'square outline'
+ 
+    const checkboxColor = this.props.namedColor(answer.text)
+    const name = (answer._id === this.state.answerId || answer._id == this.props.votedOn) ? 
+      'checkmark box' : 
+      'square outline'
     
+    const isDisabled = (this.props.votedOn !== 'nobody')
+    const isVotedOn = (answer._id === this.props.votedOn)
+  
     return (
       <List.Item key={ index } onClick={ this.changeAnswer.bind(this, answer) }>
-        <Icon name={name} color={checkboxColor} size='big' />
+        <Icon name={name} size='big' 
+          color={(isDisabled && !isVotedOn) ? 'grey' : checkboxColor} />
         <List.Content>
           <List.Header>
             <span style={{ color: this.props.color(answer.text) }}>

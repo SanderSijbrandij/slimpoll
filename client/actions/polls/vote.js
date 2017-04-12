@@ -25,7 +25,7 @@ export default (pollId, answerId, answers) => {
       // issues with this: race conditions
       polls.patch(pollId, {
         answers: newAnswers,
-        $addToSet: { voters: sessionId }
+        $addToSet: { voters: { sessionId: sessionId, answerId: answerId } }
       })
       .catch((err) => {
         // this somehow still throws the update action, making the client think it's voted. it hasn't.
