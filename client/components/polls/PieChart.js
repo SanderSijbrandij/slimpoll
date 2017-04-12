@@ -13,19 +13,10 @@ class PieChart extends Component {
     ]
   }
 
-  sortByName(a, b) { 
-    const first = a.data.text.toUpperCase()
-    const second = b.data.text.toUpperCase()
-    return first > second ? 1 : -1
-  }
-
-  votePerc(amount) {
-    const totalVotes = this.props.data.reduce((curr, next) => { return curr + next.voteCount }, 0)
-    return (totalVotes === 0) ? '0%' : `${Math.round(amount / totalVotes * 100)}%`
-  }
-
   createChart(props) {
     const { data } = props
+    const totalVotes = data.reduce((curr, next) => { return curr + next.voteCount }, 0)
+    
     const margin = { top: 10, bottom: 10, left: 10, right: 10 }
     const width = 322 - margin.left - margin.right
     const height = 322 - margin.top - margin.bottom
@@ -37,10 +28,10 @@ class PieChart extends Component {
     const color = d3.scaleOrdinal().range(['#f2711c', '#2185d0', '#db2828', '#21ba45', '#6435c9', '#00b5ad', '#a333c8', '#a5673f'])
 
     const pieTween = (b) => {
-    b.innerRadius = 0
-    const i = d3.interpolate({ startAngle: 0, endAngle: 0}, b)
-    return (t) => { return arc(i(t)) }
-  }
+      b.innerRadius = 0
+      const i = d3.interpolate({ startAngle: 0, endAngle: 0}, b)
+      return (t) => { return arc(i(t)) }
+    }
 
     const svg = d3.select('svg#pie')
       .attr('width', width)
@@ -63,7 +54,7 @@ class PieChart extends Component {
       .attr('dy', '.35em')
       .text(d => { 
         return d.data.voteCount > 0 ?
-          this.votePerc(d.data.voteCount) : 
+          `${Math.round(d.data.voteCount / totalVotes * 100)}%` :
           null
       })
       .attr('fill', 'white')
