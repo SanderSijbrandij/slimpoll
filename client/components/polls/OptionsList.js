@@ -11,7 +11,8 @@ class OptionsList extends PureComponent {
   }
 
   static defaultProps = {
-    color: d3.scaleOrdinal().range(['blue', 'green', 'red', 'orange'])
+    color: d3.scaleOrdinal().range(['#f2711c', '#2185d0', '#db2828', '#21ba45', '#6435c9', '#00b5ad', '#a333c8', '#a5673f']),
+    namedColor: d3.scaleOrdinal().range(['orange', 'blue', 'red', 'green', 'violet', 'teal', 'purple', 'brown'])  
   }
 
   constructor() {
@@ -29,7 +30,7 @@ class OptionsList extends PureComponent {
   renderAnswer(answer, index, answers) {
     const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
     const votePerc = (totalVotes === 0) ? 0 : Math.round(answer.voteCount / totalVotes * 100)
-    const checkboxColor = (answer._id === this.state.answerId) ? this.props.color(answer.text) : 'grey'
+    const checkboxColor = (answer._id === this.state.answerId) ? this.props.namedColor(answer.text) : 'grey'
     const name = (answer._id === this.state.answerId) ? 'checkmark box' : 'square outline'
     
     return (
