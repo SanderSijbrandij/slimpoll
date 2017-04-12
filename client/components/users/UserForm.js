@@ -16,7 +16,8 @@ class UserForm extends PureComponent {
     history.push('/')
   }
 
-  handleSignUp() {
+  handleSignUp(event) {
+    event.preventDefault()
     const { email, user, password, password_confirmation } = this.refs
 
     // add validations here.
@@ -69,7 +70,10 @@ class UserForm extends PureComponent {
           { extended && <Divider hidden /> }
           
           <Input type='submit'>
-            <Button color='orange'>{ extended ? 'Sign up' : 'Sign in' }</Button>
+            <Button color='orange'
+              onClick={ extended ? (event) => this.handleSignUp(event) : (event) => this.handleSignIn(event) }>
+                { extended ? 'Sign up' : 'Sign in' }
+              </Button>
           </Input>
           <Divider />
 
