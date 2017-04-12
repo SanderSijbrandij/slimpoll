@@ -1,13 +1,17 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Segment, List, Button, Icon, Divider } from 'semantic-ui-react'
-
+import * as d3 from 'd3'
 import addVote from '../../actions/polls/vote'
 
 class OptionsList extends PureComponent {
   static propTypes = {
     poll: PropTypes.object.isRequired,
     voted: PropTypes.bool.isRequired,
+  }
+
+  static defaultProps = {
+    color: d3.scaleOrdinal().range(['blue', 'green', 'red', 'orange'])
   }
 
   constructor() {
@@ -25,13 +29,18 @@ class OptionsList extends PureComponent {
   renderAnswer(answer, index, answers) {
     const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
     const votePerc = (totalVotes === 0) ? 0 : Math.round(answer.voteCount / totalVotes * 100)
-    const color = (answer._id === this.state.answerId) ? 'orange' : 'grey'
+    const checkboxColor = (answer._id === this.state.answerId) ? this.props.color(answer.text) : 'grey'
     const name = (answer._id === this.state.answerId) ? 'checkmark box' : 'square outline'
+    
     return (
       <List.Item key={ index } onClick={ this.changeAnswer.bind(this, answer) }>
-        <Icon name={name} color={color} size='big' />
+        <Icon name={name} color={checkboxColor} size='big' />
         <List.Content>
-          <List.Header>{ answer.text }</List.Header>
+          <List.Header>
+            <span style={{ color: this.props.color(answer.text) }}>
+           { answer.text }
+           </span>
+          </List.Header>
           <List.Description>
             voted { answer.voteCount } times ({ votePerc }%)
           </List.Description>

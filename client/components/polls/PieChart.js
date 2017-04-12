@@ -24,52 +24,49 @@ class PieChart extends Component {
     return (totalVotes === 0) ? '0%' : `${Math.round(amount / totalVotes * 100)}%`
   }
 
-  updateChart(props) {
-    const { data } = props
-
-    const pie = d3.pie().value(d => d.voteCount)
-    const slices = pie(data).sort(this.sortByName)
-    const arc = d3.arc().innerRadius(0).outerRadius(75)
-
-    const pieces = d3.selectAll('path.slice')
-      .data(slices)
-        .attr('d', arc)
-
-    const legend = d3.select('g.legend')
-      .selectAll('text')
-        .text(d => d.data.text)
-  }
-
   createChart(props) {
     const { data } = props
-
-    const pie = d3.pie().value(d => d.voteCount)
-    const slices = pie(data).sort(this.sortByName)
-
-    const arc = d3.arc().innerRadius(0).outerRadius(75)
-    const color = d3.scaleOrdinal(d3.schemeCategory10)
+    const margin = { top: 10, bottom: 10, left: 10, right: 10 }
+    const width = 322 - margin.left - margin.right
+    const height = 322 - margin.top - margin.bottom
+    const radius = width/2
     
+    const arc = d3.arc().innerRadius(0).outerRadius(radius - 10)
+    const labelArc = d3.arc().innerRadius(radius - 50).outerRadius(radius - 50)
+    const pie = d3.pie().sort(null).value(d => d.voteCount)
+    const color = d3.scaleOrdinal().range(['blue', 'green', 'red', 'orange'])
+
+    const pieTween = (b) => {
+    b.innerRadius = 0
+    const i = d3.interpolate({ startAngle: 0, endAngle: 0}, b)
+    return (t) => { return arc(i(t)) }
+  }
+
     const svg = d3.select('svg#pie')
-    const chart = svg.append('g')
-      .attr('transform', 'translate(161, 100)')
-    
-    chart.selectAll('path.slice')
-      .data(slices)
-      .enter()
-        .append('path')
-          .attr('class', 'slice')
-          .attr('d', arc)
-          .attr('fill', d => color(d.data.text))
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', 'translate(' + width/2 + ', ' + height/2 + ')')
 
-    svg.append('g')
-      .attr('class', 'legend')
-        .selectAll('text')
-        .data(slices)
-        .enter()
-          .append('text')
-            .text(d => d.data.text)
-            .attr('fill', d => color(d.data.text))
-            .attr('y', (d, i) => 20 * (i+1))
+    const g = svg.selectAll('.arc')
+      .data(pie(data))
+      .enter()
+      .append('g')
+      .attr('class', 'arc')
+    
+    g.append('path')
+      .attr('d', arc)
+      .style('fill', d => color(d.data.text))
+
+    g.append('text')
+      .attr('transform', d => 'translate(' + labelArc.centroid(d) + ')')
+      .attr('dy', '.35em')
+      .text(d => { 
+        return d.data.voteCount > 0 ?
+          this.votePerc(d.data.voteCount) : 
+          null
+      })
+      .attr('fill', 'white')
   }  
 
   componentDidMount() {
@@ -77,11 +74,12 @@ class PieChart extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.updateChart(newProps)
+    // TODO: fix an update method so I can use animations
+    this.createChart(newProps)
   }
 
   render() {
-    return <svg id='pie' width='322' height='200'></svg>
+    return <svg id='pie'></svg>
   }
 }
 
