@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import { Container } from 'semantic-ui-react'
-
+import './assets/style.sass'
 import Navbar from './components/interface/Navbar'
 import Loading from './components/interface/Loading'
 import ErrorComp from './components/interface/Error'
