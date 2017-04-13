@@ -28,7 +28,7 @@ class Navbar extends PureComponent {
               <Dropdown.Menu>
                 <Dropdown.Item as={Link} to='/create-poll'>Create a poll</Dropdown.Item>
                 <Dropdown.Item as={Link} to='/my-polls'>Your polls</Dropdown.Item>
-                <Dropdown.Item>Polls you voted on</Dropdown.Item>
+                <Dropdown.Item as={Link} to='/all-polls'>All polls</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={signOut}>Sign out</Dropdown.Item>
               </Dropdown.Menu>
