@@ -1,8 +1,8 @@
 {
-  "host": "SlimPoll-app.feathersjs.com",
-  "port": 80,
-  "mongodb": "DATABASE_URL",
-  "public": "../static/",
+  "host": "0.0.0.0",
+  "port": "PORT",
+  "mongodb": "MONGODB_URI",
+  "public": "../client/",
   "auth": {
     "token": {
       "secret": "FEATHERS_AUTH_SECRET"
