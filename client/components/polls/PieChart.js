@@ -34,6 +34,11 @@ class PieChart extends Component {
       return a > 90 ? a - 180 : a
     }
 
+    const tooltipText = (num) => {
+      return num + ' vote' + (num === 1 ? '' : 's')  + ' - ' + 
+                   `${Math.round(num / totalVotes * 100)}%`
+    }
+
     const svg = d3.select('svg#pie')
       .attr('width', width)
       .attr('height', height)
@@ -52,7 +57,7 @@ class PieChart extends Component {
         .style('opacity', 1)
         .style('background-color', color(d.data.text))
         d3.select('#value')
-          .text(d.data.voteCount + ' votes - ' + `${Math.round(d.data.voteCount / totalVotes * 100)}%`)
+          .text(tooltipText(d.data.voteCount))
         d3.select('#heading')
           .text(d.data.text)
       })
