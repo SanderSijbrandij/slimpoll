@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Segment, List, Button, Icon, Divider } from 'semantic-ui-react'
 import * as d3 from 'd3'
 import addVote from '../../actions/polls/vote'
-import { getVotes, getTotalVotes } from '../../helpers/votes'
+import { getVotes } from '../../helpers/votes'
 
 class OptionsList extends Component {
   static propTypes = {

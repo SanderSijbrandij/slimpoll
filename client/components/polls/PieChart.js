@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import * as d3 from 'd3'
+import { getVotes } from '../../helpers/votes'
 
 class PieChart extends Component {
   static propTypes = {
@@ -16,7 +17,7 @@ class PieChart extends Component {
 
   createChart(props) {
     const { data } = props
-    const totalVotes = data.reduce((curr, next) => { return curr + next.voteCount }, 0)
+    const totalVotes = getVotes(data)
     
     const margin = { top: 10, bottom: 10, left: 10, right: 10 }
     const width = 322 - margin.left - margin.right
