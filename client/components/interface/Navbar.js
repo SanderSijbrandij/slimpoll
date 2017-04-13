@@ -12,10 +12,10 @@ class Navbar extends PureComponent {
   render() {
     const { signedIn, signOut, currentUser } = this.props
     return(
-      <Menu stackable borderless>
+      <Menu borderless>
         <Menu.Item as={Link} to='/'><Header color='grey'>SlimPoll</Header></Menu.Item>
         { signedIn && 
-          <Menu.Item>
+          <Menu.Item id='createbutton'>
             <Button basic animated='vertical' color='orange' as={Link} to='/create-poll'>
               <Button.Content visible>Create a poll</Button.Content>
               <Button.Content hidden>Easy as 1. 2. 3.</Button.Content>
