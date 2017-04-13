@@ -10,7 +10,8 @@ class PieChart extends Component {
     data: [
       {text: 'default', voteCount: 1}, 
       {text: 'props', voteCount: 1}
-    ]
+    ],
+    colors: d3.scaleOrdinal().range(['#f2711c', '#2185d0', '#db2828', '#21ba45', '#6435c9', '#00b5ad', '#a333c8', '#a5673f'])
   }
 
   createChart(props) {
@@ -25,7 +26,7 @@ class PieChart extends Component {
     const arc = d3.arc().innerRadius(0).outerRadius(radius - 10)
     const labelArc = d3.arc().innerRadius(radius - 50).outerRadius(radius - 50)
     const pie = d3.pie().sort(null).value(d => d.voteCount)
-    const color = d3.scaleOrdinal().range(['#f2711c', '#2185d0', '#db2828', '#21ba45', '#6435c9', '#00b5ad', '#a333c8', '#a5673f'])
+    const color = this.props.colors
 
     const pieTween = (b) => {
       b.innerRadius = 0

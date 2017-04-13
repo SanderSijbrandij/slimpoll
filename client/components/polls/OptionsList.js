@@ -1,10 +1,10 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Segment, List, Button, Icon, Divider } from 'semantic-ui-react'
 import * as d3 from 'd3'
 import addVote from '../../actions/polls/vote'
 
-class OptionsList extends PureComponent {
+class OptionsList extends Component {
   static propTypes = {
     poll: PropTypes.object.isRequired,
     voted: PropTypes.bool.isRequired,
