@@ -55,7 +55,7 @@ class Poll extends PureComponent {
                 <OptionsList poll={poll} voted={voted} votedOn={votedOn} />
               </Grid.Column>
               <Grid.Column>
-                { totalVotes > 0 && <PieChart data={answers} /> }
+                <PieChart data={answers} />
               </Grid.Column>
             </Grid.Row>
           </Grid>      
