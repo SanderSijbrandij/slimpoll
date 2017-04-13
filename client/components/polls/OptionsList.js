@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Segment, List, Button, Icon, Divider } from 'semantic-ui-react'
 import * as d3 from 'd3'
 import addVote from '../../actions/polls/vote'
+import { getVotes, getTotalVotes } from '../../helpers/votes'
 
 class OptionsList extends Component {
   static propTypes = {
@@ -30,7 +31,7 @@ class OptionsList extends Component {
   }
 
   renderAnswer(answer, index, answers) {
-    const totalVotes = answers.reduce((curr, next) => { return curr + next.voteCount }, 0)
+    const totalVotes = getVotes(answers)
     const votePerc = (totalVotes === 0) ? 0 : Math.round(answer.voteCount / totalVotes * 100)
  
     const checkboxColor = this.props.namedColor(answer.text)
@@ -62,9 +63,7 @@ class OptionsList extends Component {
   render() {
     const { poll, voted } = this.props
     const { question, answers, createdBy, voters } = poll
-    const totalVotes = answers.reduce((curr, next) => {
-      return curr + next.voteCount
-    }, 0)
+    const totalVotes = getVotes(answers)
 
     return (
       <Segment basic>
