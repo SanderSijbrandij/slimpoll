@@ -49,12 +49,12 @@ class Poll extends PureComponent {
           </Header.Subheader>
         </Header>
         <Segment attached>
-          <Grid>
-            <Grid.Row columns={2} divided>
+          <Grid stackable divided>
+            <Grid.Row columns={2}>
               <Grid.Column>
                 <OptionsList poll={poll} voted={voted} votedOn={votedOn} />
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column textAlign='center'>
                 <PieChart data={answers} />
               </Grid.Column>
             </Grid.Row>

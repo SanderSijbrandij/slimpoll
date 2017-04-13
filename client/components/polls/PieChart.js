@@ -20,8 +20,8 @@ class PieChart extends Component {
     const totalVotes = getVotes(data)
     
     const margin = { top: 10, bottom: 10, left: 10, right: 10 }
-    const width = 322 - margin.left - margin.right
-    const height = 322 - margin.top - margin.bottom
+    const width = 280 - margin.left - margin.right
+    const height = 280 - margin.top - margin.bottom
     const radius = width/2
     
     const arc = d3.arc().innerRadius(0).outerRadius(radius - 10)
