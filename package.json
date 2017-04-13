@@ -37,6 +37,7 @@
     "feathers-rest": "^1.4.4",
     "feathers-socketio": "^1.4.1",
     "feathersjs-redux-model": "github:codaisseur/feathersjs-redux-model",
+    "moment": "^2.18.1",
     "mongodb": "^2.2.19",
     "mongoose": "^4.6.0",
     "passport": "^0.3.2",

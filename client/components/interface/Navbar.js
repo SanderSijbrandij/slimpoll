@@ -27,7 +27,7 @@ class Navbar extends PureComponent {
             <Dropdown item closeOnBlur text={ currentUser.name }>
               <Dropdown.Menu>
                 <Dropdown.Item as={Link} to='/create-poll'>Create a poll</Dropdown.Item>
-                <Dropdown.Item>Your polls</Dropdown.Item>
+                <Dropdown.Item as={Link} to='/my-polls'>Your polls</Dropdown.Item>
                 <Dropdown.Item>Polls you voted on</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={signOut}>Sign out</Dropdown.Item>
