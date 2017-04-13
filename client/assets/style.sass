@@ -9,3 +9,27 @@
 .arc > path
   stroke: white
   stroke-width: 2px
+
+#tooltip
+  position: fixed
+  min-width: 200px
+  color: white
+  height: auto
+  padding: 10px
+  -webkit-border-radius: 4px
+  -moz-border-radius: 4px
+  border-radius: 4px
+  -webkit-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4)
+  -mox-box-shadow: 4px 4px 4px 5px rgba(0, 0, 0, 0.4)
+  box-shadow: 4px 4px 5px rbga(0, 0, 0, 0.4)
+  pointer-events: none
+  text-shadow: 0px 0px 50px rgba(0,0,0,0.5)
+  
+#tooltip.hidden
+    opacity: 0
+
+#tooltip p
+    margin: 0
+    font-family: sans-serif
+    font-size: 12px
+    line-height: 20px

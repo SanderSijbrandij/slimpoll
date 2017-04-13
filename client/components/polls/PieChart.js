@@ -29,12 +29,6 @@ class PieChart extends Component {
     const pie = d3.pie().sort(null).value(d => d.voteCount)
     const color = this.props.colors
 
-    const pieTween = (b) => {
-      b.innerRadius = 0
-      const i = d3.interpolate({ startAngle: 0, endAngle: 0}, b)
-      return (t) => { return arc(i(t)) }
-    }
-
     const angle = (d) => {
       const a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90
       return a > 90 ? a - 180 : a
@@ -51,7 +45,22 @@ class PieChart extends Component {
       .enter()
       .append('g')
       .attr('class', 'arc')
-    
+      .on('mouseover', d => {
+        d3.select('#tooltip')
+        .style('left', d3.event.pageX + 'px')
+        .style('top', d3.event.pageY + 'px')
+        .style('opacity', 1)
+        .style('background-color', color(d.data.text))
+        d3.select('#value')
+          .text(d.data.voteCount + ' votes - ' + `${Math.round(d.data.voteCount / totalVotes * 100)}%`)
+        d3.select('#heading')
+          .text(d.data.text)
+      })
+      .on('mouseout', function () {
+        d3.select('#tooltip')
+            .style('opacity', 0)
+      })
+
     g.append('path')
       .attr('d', arc)
       .style('fill', d => color(d.data.text))
@@ -78,7 +87,16 @@ class PieChart extends Component {
   }
 
   render() {
-    return <svg id='pie'></svg>
+    return (
+      <div>
+        <svg id='pie'></svg>
+        <div id="tooltip" className="hidden">
+          <p><strong id='heading'>heading</strong></p>
+          <p><span id="value">100</span></p>
+        </div>
+      </div>
+      
+    )
   }
 }
 
