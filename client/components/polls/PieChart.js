@@ -35,6 +35,11 @@ class PieChart extends Component {
       return (t) => { return arc(i(t)) }
     }
 
+    const angle = (d) => {
+      const a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90
+      return a > 90 ? a - 180 : a
+    }
+
     const svg = d3.select('svg#pie')
       .attr('width', width)
       .attr('height', height)
@@ -52,8 +57,9 @@ class PieChart extends Component {
       .style('fill', d => color(d.data.text))
 
     g.append('text')
-      .attr('transform', d => 'translate(' + labelArc.centroid(d) + ')')
+      .attr('transform', d => 'translate(' + labelArc.centroid(d) + ')rotate(' + angle(d) + ')')
       .attr('dy', '.35em')
+      .attr('text-anchor', 'middle')
       .text(d => { 
         return d.data.voteCount > 0 ?
           `${Math.round(d.data.voteCount / totalVotes * 100)}%` :
