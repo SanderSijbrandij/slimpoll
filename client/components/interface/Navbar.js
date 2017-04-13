@@ -1,6 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { Link } from 'react-router'
-import { Menu, Button, Header, Icon } from 'semantic-ui-react'
+import { Menu, Button, Header, Dropdown } from 'semantic-ui-react'
 
 class Navbar extends PureComponent {
   static propTypes = {
@@ -10,7 +10,7 @@ class Navbar extends PureComponent {
   }
 
   render() {
-    const { signedIn, signOut } = this.props
+    const { signedIn, signOut, currentUser } = this.props
     return(
       <Menu stackable borderless>
         <Menu.Item as={Link} to='/'><Header color='grey'>SlimPoll</Header></Menu.Item>
@@ -24,7 +24,15 @@ class Navbar extends PureComponent {
         }
         <Menu.Menu position='right'>
           { signedIn &&
-            <Menu.Item onClick={signOut}>Sign out</Menu.Item>
+            <Dropdown item closeOnBlur text={ currentUser.name }>
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to='/create-poll'>Create a poll</Dropdown.Item>
+                <Dropdown.Item>Your polls</Dropdown.Item>
+                <Dropdown.Item>Polls you voted on</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={signOut}>Sign out</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           }
           { !signedIn &&
             <Menu.Item as={Link} to='sign-in'>Sign in</Menu.Item>
