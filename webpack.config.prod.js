@@ -31,14 +31,14 @@ module.exports = {
         warnings: false
       }
     }),
-    HTMLWebpackPluginConfig
+    // HTMLWebpackPluginConfig
   ],
   module: {
     loaders: [
       {
         test: /\.jsx?/,
         loader: 'babel',
-        include: path.join(__dirname, 'src'),
+        include: path.join(__dirname, 'client'),
         exclude: [/(node_modules|bower_components)/, /\.test\.jsx?$/],
         query: {
           presets: ['airbnb', 'react', 'es2015', 'stage-0']
