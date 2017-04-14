@@ -2,6 +2,11 @@ import React, { PureComponent, PropTypes } from 'react'
 import { Button, Icon } from 'semantic-ui-react'
 
 class Pagination extends PureComponent {
+  static PropTypes = {
+    data: PropTypes.object.isRequired,
+    fetchData: PropTypes.func.isRequired
+  }
+
   page(e, n) {
     const { currentPage, pages } = this.props.data
     if (n == 'prev') { 
@@ -14,8 +19,8 @@ class Pagination extends PureComponent {
 
   makeButtonsArray() {
     const { data } = this.props
-    
     let buttons = []
+    
     for (let i = 1; i <= data.pages; i++) {
       const button = data.currentPage == i
       buttons.push(button)
