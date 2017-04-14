@@ -30,11 +30,10 @@ class Pagination extends PureComponent {
 
   render() { 
     const pages = this.makeButtonsArray()
-
     return (
       <div style={{ textAlign: 'center', margin: '0 auto' }}>
       <Button.Group size='mini'>
-        <Button animated='fade' color='grey' onClick={ (e, n) => this.page(e, 'prev') }>
+        <Button style={{width: '85px'}} animated='fade' color='grey' onClick={ (e, n) => this.page(e, 'prev') }>
           <Button.Content hidden><Icon name='chevron left' /></Button.Content>
           <Button.Content visible>previous</Button.Content>
         </Button>
@@ -47,7 +46,7 @@ class Pagination extends PureComponent {
               </Button>
           })
         }
-        <Button animated='fade' color='grey' onClick={ (e, n) => this.page(e, 'next') } >
+        <Button style={{width: '85px'}} animated='fade' color='grey' onClick={ (e, n) => this.page(e, 'next') } >
           <Button.Content hidden><Icon name='chevron right' /></Button.Content>
           <Button.Content visible>next</Button.Content>
         </Button>

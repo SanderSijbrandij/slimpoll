@@ -15,7 +15,7 @@ class PollItem extends PureComponent {
         <List.Content>
           <List.Header>{ poll.question }</List.Header>
           <List.Description>
-            Created { moment(poll.createdAt).fromNow() } <br />
+            Created { moment(poll.createdAt).fromNow() } by { poll.createdBy.name } <br />
             { votes } vote{ votes === 1 ? null : 's' }
           </List.Description>
         </List.Content>
