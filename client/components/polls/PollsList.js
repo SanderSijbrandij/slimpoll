@@ -10,7 +10,9 @@ import fetchPolls from '../../actions/polls/fetch'
 
 class PollsList extends PureComponent {
   componentDidMount() {
-    if (!this.props.currentUser) { history.push('/sign-in') }
+    if (!this.props.currentUser && this.props.location.pathname === 'my-polls') { 
+      history.push('/sign-in') 
+    }
   }
 
   renderPoll(p, i) {

@@ -35,6 +35,9 @@ class Navbar extends PureComponent {
             </Dropdown>
           }
           { !signedIn &&
+            <Menu.Item as={Link} to='/all-polls'>All Polls</Menu.Item>
+          }
+          { !signedIn &&
             <Menu.Item as={Link} to='sign-in'>Sign in</Menu.Item>
           }
         </Menu.Menu>
